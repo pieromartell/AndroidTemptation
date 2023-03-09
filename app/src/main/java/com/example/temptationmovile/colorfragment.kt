@@ -163,7 +163,7 @@ class colorfragment : Fragment() {
         call!!.enqueue(object:Callback<Color?>{
             override fun onResponse(call: Call<Color?>, response: Response<Color?>) {
                 if(response.isSuccessful){
-                    objutilidad.MensajeToast(context,"Se registro la categoria")
+                    objutilidad.MensajeToast(context,"Se registro el Color")
                 }
             }
 
