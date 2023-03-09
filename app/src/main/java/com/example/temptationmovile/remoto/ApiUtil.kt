@@ -5,7 +5,7 @@ import com.example.temptationmovile.servicios.ColorService
 import com.example.temptationmovile.servicios.PersonService
 
 object ApiUtil {
-    val API_URL = "http://192.168.18.4:3000/"
+    val API_URL = "http://192.168.1.36:3000/"
 
     val brandservice: BrandService?
         get() = RetrofitClient.getClient(API_URL)?.create(BrandService::class.java)
