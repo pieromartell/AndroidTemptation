@@ -6,7 +6,7 @@ import android.content.Context
 import android.view.ViewGroup
 import android.widget.*
 
-class util {
+class Util {
     //creamos una variable de tipo alertDialog
     private var dialogo: AlertDialog.Builder?=null
 

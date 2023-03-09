@@ -9,19 +9,19 @@ import com.example.temptationmovile.clases.ResponseLogin
 import com.example.temptationmovile.databinding.ActivityLoginBinding
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.PersonService
-import com.example.temptationmovile.utilidad.util
+import com.example.temptationmovile.utilidad.Util
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
-    private val objtutilidad = util()
+    private val objtutilidad = Util()
     private var personService: PersonService = ApiUtil.personService!!
     //declaramos variables
     private var usu = ""
     private var cla =""
     val objPerson = ResponseLogin();
-    var objutilidad  =  util();
+    var objutilidad  =  Util();
 
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {

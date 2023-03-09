@@ -14,7 +14,7 @@ import com.example.temptationmovile.adaptadores.Adaptadorbrand
 import com.example.temptationmovile.databinding.BrandFragmentBinding
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.BrandService
-import com.example.temptationmovile.utilidad.util
+import com.example.temptationmovile.utilidad.Util
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,7 +49,7 @@ class brandFragmene : Fragment() {
     private lateinit var binding: BrandFragmentBinding
     private var brandservice: BrandService ? = null
     private var registrobrand: List<Brand>?=null
-    var objutilidad =  util()
+    var objutilidad =  Util()
 
     //creamos transicion para fragmento
     var ft: FragmentTransaction?= null
