@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.temptationmovile.databinding.ActivityMainBinding
+import com.example.temptationmovile.ui.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -65,6 +66,13 @@ class MainActivity : AppCompatActivity() {
 
 
         return when (id) {
+            R.id.jmiInicio -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_inicio = HomeFragment()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_inicio).commit()
+                true
+            }
 
             R.id.jmibrand -> {
                 //creamos una constante del fragmento que vamos a cambiar

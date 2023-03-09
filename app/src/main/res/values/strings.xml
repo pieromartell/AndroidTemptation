@@ -20,4 +20,5 @@
     <string name="valstringlistar">Lista</string>
     <string name="valstringnombreProduct">Nombre</string>
     <string name="valstringdescripcionproduct">Descripcion</string>
+    <string name="txtvaltitulo">Bienvenido</string>
 </resources>
