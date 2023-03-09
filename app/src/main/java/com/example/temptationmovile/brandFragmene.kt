@@ -73,27 +73,33 @@ class brandFragmene : Fragment() {
         registrobrand = ArrayList()
 
         brandservice = ApiUtil.brandservice
+
+
         mostrarBrand(raiz.context)
 
 
         btnRegistra.setOnClickListener {
-            if (txtNomb.getText().toString()==""){
+            if (txtNomb.getText().toString() == "") {
                 objutilidad.MensajeToast(raiz.context, "Ingrese el Nombre")
                 txtNomb.requestFocus()
-            }else{
+            } else {
                 name_brand = txtNomb.getText().toString()
-                state = if (chbEst.isChecked)1 else 0
+                state = if (chbEst.isChecked) 1 else 0
                 //envienadoo los valores
                 objbrand.name_brand = name_brand
                 objbrand.state = state
-                //registrar(raiz.context, objbrand)
-                objutilidad.limpiar(raiz.findViewById<View>(R.id.frmBrand) as ViewGroup)
+                Log.e(objbrand.name_brand, (objbrand.state).toString())
+                registrar(raiz.context, objbrand)
+                Log.e(objbrand.name_brand, (objbrand.state).toString())
+
+                //actualizamos el brand
                 val fbrand = brandFragmene()
                 ft = fragmentManager?.beginTransaction()
-                ft?.replace(R.id.contenedor,fbrand, null)
+                ft?.replace(R.id.contenedor,fbrand,null)
                 ft?.addToBackStack(null)
                 ft?.commit()
             }
+        }
 
             lstbrand.setOnItemClickListener(
                 { adapterView, view,i, id ->
@@ -109,9 +115,9 @@ class brandFragmene : Fragment() {
 
                 }
             )
+            return raiz
         }
-        return raiz
-    }
+
     //CREAMOS LA FUNCION PARA MOSTRAR LAS CATEGORIAS
     fun mostrarBrand(context: Context){
         val call = brandservice!!.MostrarBrand()
@@ -132,21 +138,21 @@ class brandFragmene : Fragment() {
 
         })
     }
-//    fun registrar(context: Context,c:Brand){
-//        val call = brandservice!!.RegistrarBrand(c)
-//        call!!.enqueue(object :Callback<Brand?>{
-//            override fun onResponse(call: Call<Brand?>, response: Response<Brand?>) {
-//                if(response.isSuccessful){
-//                    objutilidad.MensajeToast(context, "Se registro la marca")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Brand?>, t: Throwable) {
-//                Log.e("Error: ", t.message!!)
-//            }
-//
-//        })
-//    }
+    fun registrar(context: Context,c:Brand){
+        val call = brandservice!!.RegistrarBrand(c)
+        call!!.enqueue(object :Callback<Brand?>{
+            override fun onResponse(call: Call<Brand?>, response: Response<Brand?>) {
+                if(response.isSuccessful){
+                    objutilidad.MensajeToast(context, "Se registro la marca")
+                }
+            }
+
+            override fun onFailure(call: Call<Brand?>, t: Throwable) {
+                Log.e("Error: ", t.message!!)
+            }
+
+        })
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
