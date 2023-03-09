@@ -1,12 +1,9 @@
 package com.example.temptationmovile.remoto
 
-import com.example.temptationmovile.servicios.BrandService
-import com.example.temptationmovile.servicios.ColorService
-import com.example.temptationmovile.servicios.PersonService
-import com.example.temptationmovile.servicios.ProviderService
+import com.example.temptationmovile.servicios.*
 
 object ApiUtil {
-    val API_URL = "http://192.168.1.36:3000/"
+    val API_URL = "http://192.168.137.1:3000/"
 
     val brandservice: BrandService?
         get() = RetrofitClient.getClient(API_URL)?.create(BrandService::class.java)
@@ -19,4 +16,10 @@ object ApiUtil {
 
     val providerService: ProviderService?
         get() = RetrofitClient.getClient(API_URL)?.create(ProviderService::class.java)
+    val rolService:RolService?
+        get() = RetrofitClient.getClient(API_URL)?.create(RolService::class.java)
+
+    val sizeService:SizeService?
+        get() = RetrofitClient.getClient(API_URL)?.create(SizeService::class.java)
+
 }

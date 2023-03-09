@@ -16,6 +16,12 @@
         android:id="@+id/jmiproduct"
         android:title="Producto" />
     <item
+        android:id="@+id/jmirol"
+        android:title="Roles" />
+    <item
+        android:id="@+id/jmisize"
+        android:title="Sizes" />
+    <item
         android:id="@+id/jmisalir"
         android:title="Salir" />
 </menu>

@@ -22,4 +22,14 @@
         android:name="com.example.temptationmovile.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_rol"
+        android:name="com.example.temptationmovile.RolFragment"
+        android:label="Roles"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_size"
+        android:name="com.example.temptationmovile.SizeFragment"
+        android:label="Tallas"
+        tools:layout="@layout/fragment_slideshow" />
 </navigation>
