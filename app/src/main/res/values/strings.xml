@@ -14,4 +14,6 @@
     <string name="valstringingresar">Ingresar</string>
     <string name="valstringpassword">Ingrese su Contraseña</string>
     <string name="valstringnombre">Ingrese su Nombre de Usuario</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
