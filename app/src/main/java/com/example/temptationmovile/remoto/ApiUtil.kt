@@ -4,6 +4,7 @@ import com.example.temptationmovile.servicios.BrandService
 import com.example.temptationmovile.servicios.CategoryService
 import com.example.temptationmovile.servicios.ColorService
 import com.example.temptationmovile.servicios.PersonService
+import com.example.temptationmovile.servicios.ProviderService
 
 object ApiUtil {
     val API_URL = "http://192.168.18.4:3000/"
@@ -19,4 +20,8 @@ object ApiUtil {
 
     val categoryService: CategoryService?
         get() = RetrofitClient.getClient(API_URL)?.create(CategoryService::class.java)
+
+    val providerService: ProviderService?
+        get() = RetrofitClient.getClient(API_URL)?.create(ProviderService::class.java)
+
 }
