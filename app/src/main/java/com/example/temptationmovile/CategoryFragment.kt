@@ -40,7 +40,6 @@ class CategoryFragment : Fragment() {
     private lateinit var btnregistrar_cat: Button
     private lateinit var btnactualizar_cat: Button
     private lateinit var btneliminar_cat: Button
-    private lateinit var btnsalir_cat: Button
     private lateinit var lstcat: ListView
 
     val objcategory = Category()
@@ -140,7 +139,7 @@ class CategoryFragment : Fragment() {
             ) {
                 if(response.isSuccessful){
                     registroCategory = response.body()
-                    lstcat.adapter = AdaptadorCategory(context,registroCategory)
+                    lstcat.adapter = AdaptadorCategory(contex,registroCategory)
                 }
             }
 

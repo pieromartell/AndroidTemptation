@@ -6,7 +6,7 @@
         android:title="Inicio" />
     <item
         android:id="@+id/jmibrand"
-        android:title="Brand" />
+        android:title="Marca" />
     <item
         android:id="@+id/jmicolor"
         android:title="Color" />
@@ -15,7 +15,7 @@
         android:title="Categoria" />
     <item
         android:id="@+id/jmistyle"
-        android:title="Style" />
+        android:title="Estilo" />
     <item
         android:id="@+id/jmiproduct"
         android:title="Producto" />

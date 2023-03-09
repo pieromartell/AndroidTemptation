@@ -102,6 +102,13 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_prod).commit()
                 true
             }
+            R.id.jmistyle -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_style = StyleFragment()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_style).commit()
+                true
+            }
             R.id.jmisalir -> {
                 this.finish()
                 true

@@ -80,7 +80,6 @@ class colorfragment : Fragment() {
         btnregistrar_color = raiz.findViewById(R.id.btnregistrar_color)
         btnactualizar_color = raiz.findViewById(R.id.btnactualizar_color)
         btneliminar_color = raiz.findViewById(R.id.btneliminar_color)
-        btnsalir_color = raiz.findViewById(R.id.btnsalir_color)
         lstcolor = raiz.findViewById(R.id.lstcolor)
 
         //
