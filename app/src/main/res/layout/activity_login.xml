@@ -10,7 +10,7 @@
         android:id="@+id/btningresar"
         android:layout_width="409dp"
         android:layout_height="62dp"
-        android:text="@string/valstringingresar"
+        android:text="Ingresar al Sistema"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,22 +29,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="215dp"
-        android:layout_height="196dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@mipmap/micono" />
-
     <EditText
         android:id="@+id/txtusername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/valstringnombre"
         android:inputType="textPersonName"
@@ -71,10 +60,20 @@
         android:layout_width="412dp"
         android:layout_height="64dp"
         android:layout_marginTop="12dp"
-        android:text="@string/valstringsalir"
+        android:text="Salir del Sistema"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btningresar" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="193dp"
+        android:layout_height="216dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@mipmap/usuario" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

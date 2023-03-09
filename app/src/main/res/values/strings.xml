@@ -10,8 +10,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="valstringsalir">Salir</string>
-    <string name="valstringingresar">Ingresar</string>
+    <string name="valstringsalir">Salir del Sistema</string>
+    <string name="valstringingresar">Ingresar al Sistema</string>
     <string name="valstringpassword">Ingrese su Contraseña</string>
     <string name="valstringnombre">Ingrese su Nombre de Usuario</string>
     <!-- TODO: Remove or change this placeholder text -->
