@@ -156,6 +156,7 @@ class ProvidersFragment : Fragment() {
                 txt_EmpresaProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).company_name)
                 txt_DireccionProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).address)
 
+
                 if((registroprovider as ArrayList<Provider>).get(fila).state != 0){
                     chb_Est.setChecked(true)
                 }else{
