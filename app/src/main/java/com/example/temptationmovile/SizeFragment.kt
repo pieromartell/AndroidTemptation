@@ -110,7 +110,7 @@ class SizeFragment : Fragment() {
                 //asignamos los valores a cada control
                 lblCodSiz.setText(""+(registroSize as ArrayList<Size>).get(fila).idsize)
                 txtSiz.setText(""+(registroSize as ArrayList<Size>).get(fila).name_size)
-                if((registroSize as ArrayList<Rol>).get(fila).state != 0){
+                if((registroSize as ArrayList<Size>).get(fila).state != 0){
                     chbEst.setChecked(true)
                 }else{
                     chbEst.setChecked(false)
