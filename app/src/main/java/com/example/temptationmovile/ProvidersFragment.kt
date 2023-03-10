@@ -144,6 +144,7 @@ class ProvidersFragment : Fragment() {
                 lbl_CodProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).idprovider)
                 txt_Nomb.setText(""+(registroprovider as ArrayList<Provider>).get(fila).name_prov)
 
+
                 if((registroprovider as ArrayList<Provider>).get(fila).state != 0){
                     chb_Est.setChecked(true)
                 }else{

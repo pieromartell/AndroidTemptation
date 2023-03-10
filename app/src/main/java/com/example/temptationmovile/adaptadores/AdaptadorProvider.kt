@@ -31,19 +31,19 @@ class AdaptadorProvider(context: Context?, private val listprov: List<Provider>?
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         var vista = p1
         if(vista == null){
-            vista = layoutInflater.inflate(R.layout.elemento_lista_brand,p2,false);
-            val objbrand =  getItem(p0) as Brand
+            vista = layoutInflater.inflate(R.layout.elemento_lista_provider,p2,false);
+            val objprov =  getItem(p0) as Provider
             //creamos los controladores
-            val lstidbrand = vista!!.findViewById<TextView>(R.id.lstidband)
-            val lstname_brand = vista!!.findViewById<TextView>(R.id.lstname_brand)
-            val lststate = vista!!.findViewById<TextView>(R.id.lststate)
+            val lstidprov = vista!!.findViewById<TextView>(R.id.lstidprov)
+            val lstname_prov = vista!!.findViewById<TextView>(R.id.lstname_prov)
+            val lststate_pro = vista!!.findViewById<TextView>(R.id.lststate_pro)
 
-            lstidbrand.text =""+objbrand.idbrand
-            lstname_brand.text = ""+objbrand.name_brand
-            if (objbrand.state == 1){
-                lststate.text = "Habilitado"
+            lstidprov.text =""+objprov.idprovider
+            lstname_prov.text = ""+objprov.name_prov
+            if (objprov.state == 1){
+                lststate_pro.text = "Habilitado"
             }else{
-                lststate.text = "Desabilitado"
+                lststate_pro.text = "Desabilitado"
             }
         }
         return vista!!;
