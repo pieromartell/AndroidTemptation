@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.jmiprovider -> {
                 //creamos una constante del fragmento que vamos a cambiar
-                val frag_prov = ProviderFragment()
+                val frag_prov = ProvidersFragment()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_prov).commit()
                 true

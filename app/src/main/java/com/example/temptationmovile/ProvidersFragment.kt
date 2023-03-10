@@ -1,5 +1,6 @@
 package com.example.temptationmovile
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.temptationmovile.clases.Provider
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.adaptadores.AdaptadorProvider
-import com.example.temptationmovile.clases.Brand
-import com.example.temptationmovile.clases.Provider
 import com.example.temptationmovile.databinding.BrandFragmentBinding
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.ProviderService
@@ -20,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -27,18 +28,25 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ProviderFragment.newInstance] factory method to
+ * Use the [ProvidersFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProviderFragment : Fragment() {
-    private lateinit var txtNomb: EditText
-    private lateinit var chbEst: CheckBox
-    private lateinit var lblCodProv: TextView
-    private lateinit var btnRegistrar: Button
-    private lateinit var btnActualizar: Button
-    private lateinit var btnEliminar: Button
-    private lateinit var btnSalir: Button
-    private lateinit var lstProvider: ListView
+class ProvidersFragment : Fragment() {
+    private lateinit var txt_Nomb: EditText
+    private lateinit var chb_Est: CheckBox
+    private lateinit var lbl_CodProv: TextView
+    private lateinit var btn_Registrar: Button
+    private lateinit var btn_Actualizar: Button
+    private lateinit var btn_Eliminar: Button
+    private lateinit var btn_Salir: Button
+    private lateinit var txt_RucProv: EditText
+    private lateinit var txt_EmpresaProv: EditText
+    private lateinit var txt_TelefonoProv: EditText
+    private lateinit var txt_EmailProv: EditText
+    private lateinit var txt_DescripcionPro: EditText
+    private lateinit var txt_DireccionProv: EditText
+    private lateinit var lst_Provider: ListView
+
 
     val objprob = Provider()
     private var idprovider=0
@@ -52,7 +60,7 @@ class ProviderFragment : Fragment() {
     private var state=1
     private var fila =-1
 
-    private lateinit var binding: ProviderFragment
+    private lateinit var binding: ProvidersFragment
     private var providerservice: ProviderService? = null
     private var registroprovider: List<Provider>?=null
     var objutilidad =  Util()
@@ -69,21 +77,30 @@ class ProviderFragment : Fragment() {
         }
     }*/
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_provider, container, false)
-        val raiz=inflater.inflate(R.layout.fragment_provider,container,false)
+        val raiz=inflater.inflate(R.layout.fragment_providers,container,false)
         //creamos los controles
-        txtNomb=raiz.findViewById(R.id.txtnombreprov)
-        chbEst=raiz.findViewById(R.id.chbprovider)
-        lblCodProv=raiz.findViewById(R.id.lblidprovider)
-        btnRegistrar=raiz.findViewById(R.id.btnregistrarprov)
-        btnActualizar=raiz.findViewById(R.id.btnactualizarprov)
-        btnEliminar=raiz.findViewById(R.id.btneliminarprov)
-        lstProvider=raiz.findViewById(R.id.lstprovider)
+        txt_Nomb=raiz.findViewById(R.id.txtnombreprov1)
+        chb_Est=raiz.findViewById(R.id.chbprovider1)
+        lbl_CodProv=raiz.findViewById(R.id.lblidprovider)
+        btn_Registrar=raiz.findViewById(R.id.btnregistrarprov)
+        btn_Actualizar=raiz.findViewById(R.id.btnactualizarprov)
+        btn_Eliminar=raiz.findViewById(R.id.btneliminarprov)
+        lst_Provider=raiz.findViewById(R.id.lstlistarprovider)
+        txt_DescripcionPro=raiz.findViewById(R.id.txtdescription_prov)
+        txt_DireccionProv=raiz.findViewById(R.id.txtdireccion_prov)
+        txt_EmailProv=raiz.findViewById(R.id.txtemail_prov)
+        txt_EmpresaProv=raiz.findViewById(R.id.txtempresa_prov)
+        txt_RucProv=raiz.findViewById(R.id.txtrucprov)
+        txt_TelefonoProv=raiz.findViewById(R.id.txtemail_prov)
+
+
         registroprovider = ArrayList()
 
         providerservice = ApiUtil.providerService
@@ -91,22 +108,28 @@ class ProviderFragment : Fragment() {
 
         mostrarProvider(raiz.context)
 
-        btnRegistrar.setOnClickListener {
-            if (txtNomb.getText().toString() == "") {
+        btn_Registrar.setOnClickListener {
+            if (txt_Nomb.getText().toString() == "") {
                 objutilidad.MensajeToast(raiz.context, "Ingrese el Nombre")
-                txtNomb.requestFocus()
+                txt_Nomb.requestFocus()
             } else {
-                name_prov = txtNomb.getText().toString()
-                state = if (chbEst.isChecked) 1 else 0
+                name_prov = txt_Nomb.getText().toString()
+                state = if (chb_Est.isChecked) 1 else 0
                 //envienadoo los valores
                 objprob.name_prov = name_prov
+                objprob.ruc=ruc
+                objprob.address=address
+                objprob.company_name=company_name
+                objprob.phone=phone
+                objprob.email=email
+                objprob.description=description
                 objprob.state = state
-                Log.e(objprob.name_prov, (objprob.state).toString())
+                //Log.e(objprob.name_prov, (objprob.state).toString())
                 registrar(raiz.context, objprob)
-                Log.e(objprob.name_prov, (objprob.state).toString())
+                //Log.e(objprob.name_prov, (objprob.state).toString())
 
                 //actualizamos el brand
-                val fprov = ProviderFragment()
+                val fprov = ProvidersFragment()
                 ft = fragmentManager?.beginTransaction()
                 ft?.replace(R.id.contenedor,fprov,null)
                 ft?.addToBackStack(null)
@@ -114,16 +137,17 @@ class ProviderFragment : Fragment() {
             }
         }
 
-        lstProvider.setOnItemClickListener(
+        lst_Provider.setOnItemClickListener(
             { adapterView, view,i, id ->
                 fila = i
                 //asignamos los valores a cada control
-                lblCodProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).idprovider)
-                txtNomb.setText(""+(registroprovider as ArrayList<Provider>).get(fila).name_prov)
+                lbl_CodProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).idprovider)
+                txt_Nomb.setText(""+(registroprovider as ArrayList<Provider>).get(fila).name_prov)
+
                 if((registroprovider as ArrayList<Provider>).get(fila).state != 0){
-                    chbEst.setChecked(true)
+                    chb_Est.setChecked(true)
                 }else{
-                    chbEst.setChecked(false)
+                    chb_Est.setChecked(false)
                 }
 
             }
@@ -143,7 +167,7 @@ class ProviderFragment : Fragment() {
             ) {
                 if(response.isSuccessful){
                     registroprovider = response.body()
-                    lstProvider.adapter = AdaptadorProvider(context,registroprovider)
+                    lst_Provider.adapter = AdaptadorProvider(context,registroprovider)
                 }
             }
 
@@ -174,24 +198,4 @@ class ProviderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
     }
-
-    /*companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProviderFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProviderFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }*/
 }
