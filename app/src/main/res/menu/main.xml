@@ -26,6 +26,9 @@
         android:id="@+id/jmisize"
         android:title="Sizes" />
     <item
+        android:id="@+id/jmiperson"
+        android:title="Usuarios" />
+    <item
         android:id="@+id/jmisalir"
         android:title="Salir" />
 </menu>
