@@ -114,6 +114,12 @@ class ProvidersFragment : Fragment() {
                 txt_Nomb.requestFocus()
             } else {
                 name_prov = txt_Nomb.getText().toString()
+                ruc = txt_RucProv.getText().toString()
+                company_name = txt_EmpresaProv.getText().toString()
+                phone= txt_TelefonoProv.getText().toString().toInt()
+                email= txt_EmailProv.getText().toString()
+                description= txt_DescripcionPro.getText().toString()
+                address= txt_DireccionProv.getText().toString()
                 state = if (chb_Est.isChecked) 1 else 0
                 //envienadoo los valores
                 objprob.name_prov = name_prov
@@ -143,6 +149,12 @@ class ProvidersFragment : Fragment() {
                 //asignamos los valores a cada control
                 lbl_CodProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).idprovider)
                 txt_Nomb.setText(""+(registroprovider as ArrayList<Provider>).get(fila).name_prov)
+                txt_DescripcionPro.setText(""+(registroprovider as ArrayList<Provider>).get(fila).description)
+                txt_TelefonoProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).phone)
+                txt_EmailProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).email)
+                txt_RucProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).ruc)
+                txt_EmpresaProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).company_name)
+                txt_DireccionProv.setText(""+(registroprovider as ArrayList<Provider>).get(fila).address)
 
                 if((registroprovider as ArrayList<Provider>).get(fila).state != 0){
                     chb_Est.setChecked(true)
