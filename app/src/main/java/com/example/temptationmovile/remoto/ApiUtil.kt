@@ -14,12 +14,19 @@ object ApiUtil {
     val personService: PersonService?
         get() = RetrofitClient.getClient(API_URL)?.create(PersonService::class.java)
 
+    val categoryService: CategoryService?
+        get() = RetrofitClient.getClient(API_URL)?.create(CategoryService::class.java)
+
     val providerService: ProviderService?
         get() = RetrofitClient.getClient(API_URL)?.create(ProviderService::class.java)
+
     val rolService:RolService?
         get() = RetrofitClient.getClient(API_URL)?.create(RolService::class.java)
 
     val sizeService:SizeService?
         get() = RetrofitClient.getClient(API_URL)?.create(SizeService::class.java)
+
+    val styleService:StyleService?
+        get() = RetrofitClient.getClient(API_URL)?.create(StyleService::class.java)
 
 }

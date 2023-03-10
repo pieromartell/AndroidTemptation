@@ -80,7 +80,6 @@ class colorfragment : Fragment() {
         btnregistrar_color = raiz.findViewById(R.id.btnregistrar_color)
         btnactualizar_color = raiz.findViewById(R.id.btnactualizar_color)
         btneliminar_color = raiz.findViewById(R.id.btneliminar_color)
-        btnsalir_color = raiz.findViewById(R.id.btnsalir_color)
         lstcolor = raiz.findViewById(R.id.lstcolor)
 
         //
@@ -163,7 +162,7 @@ class colorfragment : Fragment() {
         call!!.enqueue(object:Callback<Color?>{
             override fun onResponse(call: Call<Color?>, response: Response<Color?>) {
                 if(response.isSuccessful){
-                    objutilidad.MensajeToast(context,"Se registro la categoria")
+                    objutilidad.MensajeToast(context,"Se registro el Color")
                 }
             }
 

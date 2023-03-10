@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.temptationmovile.databinding.ActivityMainBinding
+import com.example.temptationmovile.ui.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -65,6 +66,13 @@ class MainActivity : AppCompatActivity() {
 
 
         return when (id) {
+            R.id.jmiInicio -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_inicio = HomeFragment()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_inicio).commit()
+                true
+            }
 
             R.id.jmibrand -> {
                 //creamos una constante del fragmento que vamos a cambiar
@@ -78,6 +86,13 @@ class MainActivity : AppCompatActivity() {
                 val frag_color = colorfragment()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_color).commit()
+                true
+            }
+            R.id.jmicategory -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_category = CategoryFragment()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_category).commit()
                 true
             }
             R.id.jmiproduct -> {
@@ -98,7 +113,15 @@ class MainActivity : AppCompatActivity() {
                 //creamos una constante del fragmento que vamos a cambiar
                 val frag_size = SizeFragment()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
-                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_size).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor, frag_size)
+                    .commit()
+                true
+            }
+            R.id.jmistyle -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_style = StyleFragment()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_style).commit()
                 true
             }
             R.id.jmisalir -> {
@@ -114,6 +137,5 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
 
 }
