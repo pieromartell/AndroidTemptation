@@ -124,6 +124,27 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_style).commit()
                 true
             }
+            R.id.jmiprovider -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_prov = ProviderFragment()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_prov).commit()
+                true
+            }
+            R.id.jmiincome -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_income = incomeFragment()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_income).commit()
+                true
+            }
+            R.id.jmidetailincome -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_detail = DetailIncomeFragment()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_detail).commit()
+                true
+            }
             R.id.jmisalir -> {
                 this.finish()
                 true
