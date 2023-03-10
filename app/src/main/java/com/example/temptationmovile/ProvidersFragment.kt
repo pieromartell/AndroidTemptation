@@ -98,7 +98,7 @@ class ProvidersFragment : Fragment() {
         txt_EmailProv=raiz.findViewById(R.id.txtemail_prov)
         txt_EmpresaProv=raiz.findViewById(R.id.txtempresa_prov)
         txt_RucProv=raiz.findViewById(R.id.txtrucprov)
-        txt_TelefonoProv=raiz.findViewById(R.id.txtemail_prov)
+        txt_TelefonoProv=raiz.findViewById(R.id.txtphone_prov)
 
 
         registroprovider = ArrayList()
@@ -116,7 +116,7 @@ class ProvidersFragment : Fragment() {
                 name_prov = txt_Nomb.getText().toString()
                 ruc = txt_RucProv.getText().toString()
                 company_name = txt_EmpresaProv.getText().toString()
-                phone= txt_TelefonoProv.getText().toString().toInt()
+                phone = txt_TelefonoProv.getText().toString().toInt()
                 email= txt_EmailProv.getText().toString()
                 description= txt_DescripcionPro.getText().toString()
                 address= txt_DireccionProv.getText().toString()
