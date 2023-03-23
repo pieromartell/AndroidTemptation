@@ -1,5 +1,6 @@
 package com.example.temptationmovile
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -60,6 +61,8 @@ class CategoryFragment : Fragment() {
     //creamos transicion para fragmento
     var ft: FragmentTransaction?= null
 
+    private var dialogo: AlertDialog.Builder? = null
+
     private var _binding: CategoryFragmentBinding? = null
 
     // This property is only valid between onCreateView and
@@ -103,11 +106,44 @@ class CategoryFragment : Fragment() {
                 objcategory.state = est
                 registrarCategory(raiz.context,objcategory)
                 //
-                val fcategory = CategoryFragment()
-                ft = fragmentManager?.beginTransaction()
-                ft?.replace(R.id.contenedor,fcategory,null)
-                ft?.addToBackStack(null)
-                ft?.commit()
+                DialogoCRUD("Registro de Categoria","Se registró la nueva Categoria correctamente",
+                CategoryFragment())
+            }
+        }
+
+        btnactualizar_cat.setOnClickListener {
+            if (fila >= 0) {
+                cod = lblidcat.getText().toString().toInt()
+                nom = txtcat.getText().toString()
+                est = if (chbestado.isChecked) {
+                    1
+                } else {
+                    0
+                }
+                objcategory.idcat = cod
+                objcategory.name_cat = nom
+                objcategory.state = est
+                actualizarCategory(raiz.context, objcategory, cod.toLong())
+                //objutilidad.limpiar(raiz.findViewById<View>(R.id.frmCategoria) as ViewGroup)
+                val fcategoria = CategoryFragment()
+                DialogoCRUD("Actualizacion de Categoria", "Se actualizo la categoria", fcategoria)
+            } else {
+                objutilidad.MensajeToast(raiz.context, "Seleccione un elemento de la lista")
+                lstcat.requestFocus()
+            }
+        }
+
+        btneliminar_cat.setOnClickListener {
+            if (fila >= 0) {
+                cod = lblidcat.getText().toString().toInt()
+                objcategory.idcat = cod
+                eliminarCategory(raiz.context, cod.toLong())
+                //objutilidad.limpiar(raiz.findViewById<View>(R.id.frmCategoria) as ViewGroup)
+                val fcategoria = CategoryFragment()
+                DialogoCRUD("Eliminacion de Categoria", "Se elimino la categoria", fcategoria)
+            } else {
+                objutilidad.MensajeToast(raiz.context, "Seleccione un elemento de la lista")
+                lstcat.requestFocus()
             }
         }
 
@@ -165,6 +201,58 @@ class CategoryFragment : Fragment() {
             }
 
         })
+    }
+
+    fun actualizarCategory(context: Context,ca:Category,id:Long){
+        val call = categoryService!!.ActualizarCategory(id,ca)
+        call!!.enqueue(object :Callback<List<Category>?>{
+            override fun onResponse(
+                call: Call<List<Category>?>,
+                response: Response<List<Category>?>
+            ) {
+                if(response.isSuccessful){
+                    Log.e("mensaje", "Se actualizo correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Category>?>, t: Throwable) {
+                Log.e("Error: ", t.message!!)
+            }
+
+        })
+    }
+    fun eliminarCategory(context: Context,id:Long){
+        val call = categoryService!!.EliminarCategory(id)
+        call!!.enqueue(object :Callback<List<Category>?>{
+            override fun onResponse(
+                call: Call<List<Category>?>,
+                response: Response<List<Category>?>
+            ) {
+                if(response.isSuccessful){
+                    Log.e("mensaje","Se elimino correctamente")
+                }
+            }
+            override fun onFailure(call: Call<List<Category>?>, t: Throwable) {
+                Log.e("Error: ",t.message!!)
+            }
+        })
+    }
+
+
+
+    fun DialogoCRUD(titulo: String, mensaje: String, fragment: Fragment) {
+        dialogo = AlertDialog.Builder(context)
+        dialogo!!.setTitle(titulo)
+        dialogo!!.setMessage(mensaje)
+        dialogo!!.setCancelable(false)
+        dialogo!!.setPositiveButton("Ok") { dialogo, which ->
+            val fra = fragment
+            ft = fragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor, fra, null)
+            ft?.addToBackStack(null)
+            ft?.commit()
+        }
+        dialogo!!.show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
