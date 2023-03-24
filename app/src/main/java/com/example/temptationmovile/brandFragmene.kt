@@ -1,5 +1,6 @@
 package com.example.temptationmovile
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -54,6 +55,10 @@ class brandFragmene : Fragment() {
     //creamos transicion para fragmento
     var ft: FragmentTransaction?= null
 
+
+    private var dialogo: AlertDialog.Builder? = null
+
+
     private var _binding: BrandFragmentBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,31 +95,62 @@ class brandFragmene : Fragment() {
                 objbrand.state = state
                 Log.e(objbrand.name_brand, (objbrand.state).toString())
                 registrar(raiz.context, objbrand)
-                Log.e(objbrand.name_brand, (objbrand.state).toString())
+                DialogoCRUD(
+                    "Registro de Brand",
+                    "Se registro la nueva Brand correctamente",
+                    brandFragmene()
+                )
 
                 //actualizamos el brand
-                val fbrand = brandFragmene()
-                ft = fragmentManager?.beginTransaction()
-                ft?.replace(R.id.contenedor,fbrand,null)
-                ft?.addToBackStack(null)
-                ft?.commit()
+//                val fbrand = brandFragmene()
+//                ft = fragmentManager?.beginTransaction()
+//                ft?.replace(R.id.contenedor,fbrand,null)
+//                ft?.addToBackStack(null)
+//                ft?.commit()
             }
         }
 
-            lstbrand.setOnItemClickListener(
-                { adapterView, view,i, id ->
-                    fila = i
-                    //asignamos los valores a cada control
-                    lblCodCat.setText(""+(registrobrand as ArrayList<Brand>).get(fila).idbrand)
-                    txtNomb.setText(""+(registrobrand as ArrayList<Brand>).get(fila).name_brand)
-                    if((registrobrand as ArrayList<Brand>).get(fila).state != 0){
-                        chbEst.setChecked(true)
-                    }else{
-                        chbEst.setChecked(false)
-                    }
+        btnActualizar.setOnClickListener {
+            if(fila>=0){
+                idbrand =  lblCodCat.getText().toString().toInt()
+                name_brand =  txtNomb.getText().toString()
+                state =  if (chbEst.isChecked) 1 else 0
+                objbrand.idbrand = idbrand
+                objbrand.name_brand = name_brand
+                objbrand.state = state
+                AnctualizarBrand(raiz.context, objbrand, idbrand.toLong())
+                val fbramd = brandFragmene()
+                DialogoCRUD("Actualizacion de Brand", "Se actualizo el Brand",fbramd)
+            }else{
+                lstbrand.requestFocus()
+            }
+        }
 
+        btnEliminar.setOnClickListener {
+            if(fila>=0){
+                idbrand = lblCodCat.getText().toString().toInt()
+                objbrand.idbrand = idbrand
+                EliminarBrand(raiz.context,idbrand.toLong())
+                val fbrand =  brandFragmene()
+                DialogoCRUD("Eliminar el Brand", "Se elimino el Brand",fbrand)
+            }else{
+                lstbrand.requestFocus()
+            }
+        }
+        lstbrand.setOnItemClickListener(
+            { adapterView, view,i, id ->
+                fila = i
+                //asignamos los valores a cada control
+                lblCodCat.setText(""+(registrobrand as ArrayList<Brand>).get(fila).idbrand)
+                txtNomb.setText(""+(registrobrand as ArrayList<Brand>).get(fila).name_brand)
+                if((registrobrand as ArrayList<Brand>).get(fila).state != 0){
+                    chbEst.setChecked(true)
+                }else{
+                    chbEst.setChecked(false)
                 }
-            )
+
+            }
+        )
             return raiz
         }
 
@@ -153,6 +189,57 @@ class brandFragmene : Fragment() {
 
         })
     }
+
+    fun AnctualizarBrand(context: Context, b:Brand, id: Long ){
+        val call = brandservice!!.ActualizarBrand(id,b)
+        call!!.enqueue(object : Callback<List<Brand>?>{
+            override fun onResponse(call: Call<List<Brand>?>, response: Response<List<Brand>?>) {
+                if(response.isSuccessful){
+                    Log.e("Mensaje", "Se actualizo correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Brand>?>, t: Throwable) {
+                Log.e("Error: ",t.message!!)
+            }
+
+        })
+    }
+    fun EliminarBrand(context: Context, id: Long){
+        val call = brandservice!!.EliminarBrand(id)
+        call!!.enqueue(object: Callback<List<Brand>?>{
+            override fun onResponse(call: Call<List<Brand>?>, response: Response<List<Brand>?>) {
+                if(response.isSuccessful){
+                    Log.e("mensaje","Se elimino correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Brand>?>, t: Throwable) {
+                Log.e("Error",t.message!!)
+            }
+
+        })
+    }
+
+
+
+
+    fun DialogoCRUD(titulo: String, mensaje: String, fragment: Fragment) {
+        dialogo = AlertDialog.Builder(context)
+        dialogo!!.setTitle(titulo)
+        dialogo!!.setMessage(mensaje)
+        dialogo!!.setCancelable(false)
+        dialogo!!.setPositiveButton("Ok") { dialogo, which ->
+            val fra = fragment
+            ft = fragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor, fra, null)
+            ft?.addToBackStack(null)
+            ft?.commit()
+        }
+        dialogo!!.show()
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
