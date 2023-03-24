@@ -1,5 +1,6 @@
 package com.example.temptationmovile
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -56,6 +57,7 @@ class StyleFragment : Fragment() {
 
     var objutilidad = Util()
 
+    private var dialogo: AlertDialog.Builder? = null
     //
     var ft: FragmentTransaction?= null
 
@@ -102,11 +104,44 @@ class StyleFragment : Fragment() {
                 objstyle.state = est
                 registrarStyle(raiz.context,objstyle)
                 //
+                DialogoCRUD("Registro de Estilos","Se registró el nuevo Estilo correctamente",
+                    StyleFragment())
+            }
+        }
+
+        btnactualizar_style.setOnClickListener {
+            if (fila >= 0) {
+                cod = lblidstyle.getText().toString().toInt()
+                nom = txtstyle.getText().toString()
+                est = if (chbestado.isChecked) {
+                    1
+                } else {
+                    0
+                }
+                objstyle.idstyles = cod
+                objstyle.name_sty = nom
+                objstyle.state = est
+                actualizarStyle(raiz.context, objstyle, cod.toLong())
+                //objutilidad.limpiar(raiz.findViewById<View>(R.id.frmCategoria) as ViewGroup)
                 val fstyle = StyleFragment()
-                ft = fragmentManager?.beginTransaction()
-                ft?.replace(R.id.contenedor,fstyle,null)
-                ft?.addToBackStack(null)
-                ft?.commit()
+                DialogoCRUD("Actualizacion de Estilos", "Se actualizo el estilo", fstyle)
+            } else {
+                objutilidad.MensajeToast(raiz.context, "Seleccione un elemento de la lista")
+                lststyle.requestFocus()
+            }
+        }
+
+        btneliminar_style.setOnClickListener {
+            if (fila >= 0) {
+                cod = lblidstyle.getText().toString().toInt()
+                objstyle.idstyles = cod
+                eliminarStyle(raiz.context, cod.toLong())
+                //objutilidad.limpiar(raiz.findViewById<View>(R.id.frmCategoria) as ViewGroup)
+                val fstyle = StyleFragment()
+                DialogoCRUD("Eliminacion de Estilos", "Se elimino el Estilo", fstyle)
+            } else {
+                objutilidad.MensajeToast(raiz.context, "Seleccione un elemento de la lista")
+                lststyle.requestFocus()
             }
         }
 
@@ -161,7 +196,52 @@ class StyleFragment : Fragment() {
 
         })
     }
+    fun actualizarStyle(context:Context,st:Style,id:Long){
+        val call = styleService!!.ActualizarEstilo(id,st)
+        call!!.enqueue(object :Callback<List<Style>?>{
+            override fun onResponse(call: Call<List<Style>?>, response: Response<List<Style>?>) {
+                if(response.isSuccessful){
+                    Log.e("mensaje", "Se actualizo correctamente")
+                }
+            }
 
+            override fun onFailure(call: Call<List<Style>?>, t: Throwable) {
+                Log.e("Error: ", t.message!!)
+            }
+
+        })
+    }
+
+    fun eliminarStyle(context:Context,id:Long){
+        val call = styleService!!.EliminarEstilo(id)
+        call!!.enqueue(object :Callback<List<Style>?>{
+            override fun onResponse(call: Call<List<Style>?>, response: Response<List<Style>?>) {
+                if(response.isSuccessful){
+                    Log.e("mensaje","Se elimino correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Style>?>, t: Throwable) {
+                Log.e("Error: ", t.message!!)
+            }
+
+        })
+    }
+
+    fun DialogoCRUD(titulo: String, mensaje: String, fragment: Fragment) {
+        dialogo = AlertDialog.Builder(context)
+        dialogo!!.setTitle(titulo)
+        dialogo!!.setMessage(mensaje)
+        dialogo!!.setCancelable(false)
+        dialogo!!.setPositiveButton("Ok") { dialogo, which ->
+            val fra = fragment
+            ft = fragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor, fra, null)
+            ft?.addToBackStack(null)
+            ft?.commit()
+        }
+        dialogo!!.show()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

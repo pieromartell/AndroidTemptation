@@ -218,7 +218,6 @@ class CategoryFragment : Fragment() {
             override fun onFailure(call: Call<List<Category>?>, t: Throwable) {
                 Log.e("Error: ", t.message!!)
             }
-
         })
     }
     fun eliminarCategory(context: Context,id:Long){

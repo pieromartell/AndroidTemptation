@@ -12,8 +12,8 @@ interface ColorService {
     fun RegistrarColor(@Body b: Color): Call<Color>?
 
     @PUT("color/{idcolor}")
-    fun ActualizarColor(@Path("idcolor") id: Long, @Body b: Color): Call<Color>?
+    fun ActualizarColor(@Path("idcolor") id: Long, @Body b: Color): Call<List<Color>?>?
 
-    @DELETE("brand/{idcolor}")
-    fun EliminarColor(@Path("idcolor") id: Long ): Call<Color>?
+    @DELETE("color/{idcolor}")
+    fun EliminarColor(@Path("idcolor") id: Long ): Call<List<Color>?>?
 }
