@@ -10,10 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Spinner
-import com.example.temptationmovile.adaptadores.AdaptadorComboBrand
-import com.example.temptationmovile.adaptadores.AdaptadorProduct
-import com.example.temptationmovile.clases.Brand
-import com.example.temptationmovile.clases.Product
+import com.example.temptationmovile.adaptadores.*
+import com.example.temptationmovile.clases.*
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.*
 
@@ -34,7 +32,11 @@ private const val ARG_PARAM2 = "param2"
 class ProductFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
-   private lateinit var cbocat: Spinner
+   private lateinit var cbobrad: Spinner
+   private lateinit var cbocolor: Spinner
+   private lateinit var cbosize: Spinner
+   private lateinit var cbocategory: Spinner
+   private lateinit var cbostyle: Spinner
    private lateinit var lstPro: ListView
 
    private val objBrand = Brand()
@@ -52,6 +54,10 @@ class ProductFragment : Fragment() {
     private var productService: ProductService? = null
 
     private var registroProducto: List<Product>? = null
+    private var registrocolor: List<Color>? = null
+    private var registrostyle: List<Style>? = null
+    private var registrosize: List<Size>? = null
+    private var registrocategory: List<Category>? = null
     private var registroBrand: List<Brand>? = null
 
 
@@ -68,16 +74,33 @@ class ProductFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val raiz = inflater.inflate(R.layout.fragment_product, container, false)
-        cbocat = raiz.findViewById(R.id.cboBrand)
+        cbobrad = raiz.findViewById(R.id.cboBrand)
+        cbocategory = raiz.findViewById(R.id.cboCategory)
+        cbocolor = raiz.findViewById(R.id.cbocolor)
+        cbosize = raiz.findViewById(R.id.cboSize)
+        cbostyle = raiz.findViewById(R.id.cboStyle)
         lstPro = raiz.findViewById(R.id.lstPro)
+
         registroBrand = ArrayList()
         registroProducto = ArrayList()
+        registrocolor = ArrayList()
+        registrosize = ArrayList()
+        registrostyle = ArrayList()
+        registrocategory = ArrayList()
 
         brandService = ApiUtil.brandservice
         productService = ApiUtil.productService
+        categoryService = ApiUtil.categoryService
+        sizeService = ApiUtil.sizeService
+        styleService = ApiUtil.styleService
+        colorService = ApiUtil.colorservice
 
         mostrarComboBrand(raiz.context)
         mostrarproduct(raiz.context)
+        mostrarComboStyle(raiz.context)
+        mostrarComboColor(raiz.context)
+        mostrarComboCategory(raiz.context)
+        mostrarcomboSize(raiz.context)
         return  raiz
     }
     fun mostrarComboBrand(context: Context){
@@ -86,11 +109,81 @@ class ProductFragment : Fragment() {
             override fun onResponse(call: Call<List<Brand>?>, response: Response<List<Brand>?>) {
                 if(response.isSuccessful){
                     registroBrand = response.body()
-                    cbocat.adapter = AdaptadorComboBrand(context, registroBrand)
+                    cbobrad.adapter = AdaptadorComboBrand(context, registroBrand)
                 }
             }
 
             override fun onFailure(call: Call<List<Brand>?>, t: Throwable) {
+                Log.e("Error: ", t.message.toString())
+            }
+
+        })
+    }
+
+    fun mostrarComboStyle(context: Context){
+        val call = styleService!!.MostrarEstilo()
+        call.enqueue(object : Callback<List<Style>?>{
+            override fun onResponse(call: Call<List<Style>?>, response: Response<List<Style>?>) {
+                if(response.isSuccessful){
+                    registrostyle = response.body()
+                    cbostyle.adapter = AdaptadorComboEstilo(context,registrostyle)
+                }
+            }
+
+            override fun onFailure(call: Call<List<Style>?>, t: Throwable) {
+                Log.e("Error: ", t.message.toString())
+            }
+
+        })
+    }
+    fun mostrarComboColor(context: Context){
+        val call = colorService!!.MostrarColor()
+        call.enqueue(object :Callback<List<Color>?>{
+            override fun onResponse(call: Call<List<Color>?>, response: Response<List<Color>?>) {
+                if(response.isSuccessful){
+                    registrocolor = response.body()
+                    cbocolor.adapter = AdaptadorComboColor(context,registrocolor)
+                }
+            }
+
+            override fun onFailure(call: Call<List<Color>?>, t: Throwable) {
+                Log.e("Error: ", t.message.toString())
+            }
+
+        })
+    }
+
+    fun mostrarComboCategory(context: Context){
+        val call = categoryService!!.MostrarCategory()
+        call.enqueue(object : Callback<List<Category>?>{
+            override fun onResponse(
+                call: Call<List<Category>?>,
+                response: Response<List<Category>?>
+            ) {
+                if(response.isSuccessful){
+                    registrocategory = response.body()
+                    cbocategory.adapter = AdaptadorComboCategory(context,registrocategory)
+                }
+            }
+
+            override fun onFailure(call: Call<List<Category>?>, t: Throwable) {
+                Log.e("Error: ", t.message.toString())
+            }
+
+        })
+    }
+
+    fun mostrarcomboSize(context: Context){
+        val call = sizeService!!.Mostrarsizes()
+        call.enqueue(object : Callback<List<Size>?>{
+            override fun onResponse(call: Call<List<Size>?>, response: Response<List<Size>?>) {
+                if(response.isSuccessful){
+                    registrosize = response.body()
+                    cbosize.adapter = AdaptadorComboSize(context,registrosize)
+                }
+            }
+
+            override fun onFailure(call: Call<List<Size>?>, t: Throwable) {
                 Log.e("Error: ", t.message.toString())
             }
 

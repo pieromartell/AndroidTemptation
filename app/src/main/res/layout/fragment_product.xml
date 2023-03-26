@@ -19,11 +19,11 @@
             <TextView
                 android:id="@+id/brand"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Productos"
+                android:text="ProductosA"
                 android:textAlignment="center"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -93,21 +93,21 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="77dp"
+            android:layout_height="61dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="208dp"
-                android:layout_height="match_parent"
+                android:layout_height="59dp"
                 android:text="Categoria"
                 android:textAlignment="viewStart" />
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="61dp"
                 android:text="Tamaño" />
 
         </LinearLayout>
@@ -177,35 +177,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Precio" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Stock" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/txtprecio"
                 android:layout_width="wrap_content"
-                android:layout_height="27dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="Precio"
                 android:inputType="number" />
 
             <EditText
@@ -214,6 +194,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="stock"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -273,7 +254,7 @@
             <ListView
                 android:id="@+id/lstPro"
                 android:layout_width="match_parent"
-                android:layout_height="440sp" />
+                android:layout_height="300sp" />
         </LinearLayout>
 
     </LinearLayout>
