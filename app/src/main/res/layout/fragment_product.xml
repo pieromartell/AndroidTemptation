@@ -19,11 +19,11 @@
             <TextView
                 android:id="@+id/brand"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Productos"
+                android:text="ProductosA"
                 android:textAlignment="center"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -78,13 +78,13 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/spmarca"
+                android:id="@+id/cboBrand"
                 android:layout_width="match_parent"
-                android:layout_height="73dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <Spinner
-                android:id="@+id/spestilo"
+                android:id="@+id/cboStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -93,40 +93,40 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="61dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="208dp"
-                android:layout_height="wrap_content"
+                android:layout_height="59dp"
                 android:text="Categoria"
                 android:textAlignment="viewStart" />
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="61dp"
                 android:text="Tamaño" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="34dp"
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/spcategoria"
+                android:id="@+id/cboCategory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <Spinner
-                android:id="@+id/sptamaño"
+                android:id="@+id/cboSize"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -140,12 +140,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Color" />
+                android:text="Color"
+                android:textAlignment="textStart"
+                android:textStyle="italic" />
 
             <Spinner
-                android:id="@+id/spcolor"
+                android:id="@+id/cbocolor"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -175,27 +177,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Precio" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Stock" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <EditText
@@ -204,14 +185,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="Precio"
                 android:inputType="number" />
 
             <EditText
                 android:id="@+id/txtstock"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="stock"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -238,29 +221,40 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_weight="1"
-            android:orientation="vertical"></LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnregistrarproduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Registrar" />
+
+            <Button
+                android:id="@+id/btnactualizarproduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Actualizar" />
+
+            <Button
+                android:id="@+id/btneliminarproduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Eliminar" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnregistrarbrand"
-                android:layout_width="136dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:text="@string/valstringregistrar" />
-
-            <Button
-                android:id="@+id/btneliminarbrand"
-                android:layout_width="138dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/valstringlistar" />
-
+            <ListView
+                android:id="@+id/lstPro"
+                android:layout_width="match_parent"
+                android:layout_height="300sp" />
         </LinearLayout>
 
     </LinearLayout>
