@@ -29,4 +29,7 @@ object ApiUtil {
     val styleService:StyleService?
         get() = RetrofitClient.getClient(API_URL)?.create(StyleService::class.java)
 
+    val productService: ProductService?
+        get() = RetrofitClient.getClient(API_URL)?.create(ProductService::class.java)
+
 }
