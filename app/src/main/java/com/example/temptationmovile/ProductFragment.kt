@@ -76,6 +76,12 @@ class ProductFragment : Fragment() {
     private var pos = -1
     val raiz = null
 
+    private var indiceB = 0
+    private var indiceC = 0
+    private var indiceCo = 0
+    private var indiceSy = 0
+    private var indiceSi = 0
+
     private var brandService: BrandService? = null
     private var colorService: ColorService? = null
     private var styleService: StyleService? = null
@@ -203,6 +209,54 @@ class ProductFragment : Fragment() {
 
             }
         }
+        lstPro.setOnItemClickListener { adapterView, view, i, l ->
+            fila = i
+            lblCodPro.text = (registroProducto as ArrayList<Product>).get(fila).idproduc.toString()
+           txtNomPro.setText(""+ (registroProducto as ArrayList<Product>).get(fila).name_p.toString())
+            txtdescrip.setText(""+ (registroProducto as ArrayList<Product>).get(fila).description.toString())
+            txtprice.setText(""+ (registroProducto as ArrayList<Product>).get(fila).price.toString().toDouble())
+           txtStock.setText(""+ (registroProducto as ArrayList<Product>).get(fila).stock.toString().toInt())
+            for (x in (registroBrand as ArrayList<Brand>).indices){
+                    if((registroBrand as ArrayList<Brand>).get(x).idbrand == (registroProducto as ArrayList<Product>).get(fila).idbrand){
+                        indiceB = x
+                    }
+            }
+
+            for (x in (registrocolor as ArrayList<Color>).indices){
+                if((registrocolor as ArrayList<Color>).get(x).idcolor == (registroProducto as ArrayList<Product>).get(fila).idcolor){
+                    indiceCo = x
+                }
+            }
+            for (x in (registrocategory as ArrayList<Category>).indices){
+                if((registrocategory as ArrayList<Category>).get(x).idcat == (registroProducto as ArrayList<Product>).get(fila).idcat){
+                    indiceC = x
+                }
+            }
+            for (x in (registrosize as ArrayList<Size>).indices){
+                if((registrosize as ArrayList<Size>).get(x).idsize == (registroProducto as ArrayList<Product>).get(fila).idsize){
+                    indiceSi = x
+                }
+            }
+
+            for (x in (registrostyle as ArrayList<Style>).indices){
+                if((registrostyle as ArrayList<Style>).get(x).idstyles == (registroProducto as ArrayList<Product>).get(fila).idstyles){
+                    indiceSy = x
+                }
+            }
+            cbobrad.setSelection(indiceB)
+            cbocolor.setSelection(indiceCo)
+            cbocategory.setSelection(indiceC)
+            cbosize.setSelection(indiceSi)
+            cbostyle.setSelection(indiceSy)
+            if((registroProducto as ArrayList<Product>).get(fila).state != 0){
+                chkEstPro.setChecked(true)
+            }else{
+                chkEstPro.setChecked(false)
+            }
+        }
+
+
+
         return  raiz
     }
     fun mostrarComboBrand(context: Context){
