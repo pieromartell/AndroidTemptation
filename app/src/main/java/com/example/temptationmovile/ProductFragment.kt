@@ -256,45 +256,61 @@ class ProductFragment : Fragment() {
         }
 
         btnActualizarProd.setOnClickListener {
-            cod = lblCodPro.text.toString().toInt()
-            nom =txtNomPro.text.toString()
-            descri = txtdescrip.text.toString()
-            price = txtprice.text.toString().toDouble()
-            stock = txtStock.text.toString().toInt()
-            idbramd = cbobrad.selectedItemPosition
-            codbrand = (registroBrand as ArrayList<Brand>).get(idbramd).idbrand
-            idcolor = cbocolor.selectedItemPosition
-            codcolor = (registrocolor as ArrayList<Color>).get(idcolor).idcolor
-            idcategory = cbocategory.selectedItemPosition
-            codcategory = (registrocategory as ArrayList<Category>).get(idcategory).idcat
-            idstyle = cbostyle.selectedItemPosition
-            codstyle = (registrostyle as ArrayList<Style>).get(idstyle).idstyles
-            idsize = cbosize.selectedItemPosition
-            codsize = (registrosize as ArrayList<Size>).get(idsize).idsize
-            state = if (chkEstPro.isChecked) 1 else 0
+            if(fila >=0){
+                cod = lblCodPro.text.toString().toInt()
+                nom =txtNomPro.text.toString()
+                descri = txtdescrip.text.toString()
+                price = txtprice.text.toString().toDouble()
+                stock = txtStock.text.toString().toInt()
+                idbramd = cbobrad.selectedItemPosition
+                codbrand = (registroBrand as ArrayList<Brand>).get(idbramd).idbrand
+                idcolor = cbocolor.selectedItemPosition
+                codcolor = (registrocolor as ArrayList<Color>).get(idcolor).idcolor
+                idcategory = cbocategory.selectedItemPosition
+                codcategory = (registrocategory as ArrayList<Category>).get(idcategory).idcat
+                idstyle = cbostyle.selectedItemPosition
+                codstyle = (registrostyle as ArrayList<Style>).get(idstyle).idstyles
+                idsize = cbosize.selectedItemPosition
+                codsize = (registrosize as ArrayList<Size>).get(idsize).idsize
+                state = if (chkEstPro.isChecked) 1 else 0
 
 
 
-            objproducto.idproduc = cod
-            objproducto.idcat = codcategory
-            objproducto.idsize = codsize
-            objproducto.idstyles = codstyle
-            objproducto.idbrand = codbrand
-            objproducto.idcolor = codcolor
-            objproducto.name_p = nom
-            objproducto.description = descri
-            objproducto.price = price
-            objproducto.stock = stock
-            objproducto.image_front = 0
-            objproducto.image_back = 0
-            objproducto.image_using = 0
-            objproducto.state = state
+                objproducto.idproduc = cod
+                objproducto.idcat = codcategory
+                objproducto.idsize = codsize
+                objproducto.idstyles = codstyle
+                objproducto.idbrand = codbrand
+                objproducto.idcolor = codcolor
+                objproducto.name_p = nom
+                objproducto.description = descri
+                objproducto.price = price
+                objproducto.stock = stock
+                objproducto.image_front = 0
+                objproducto.image_back = 0
+                objproducto.image_using = 0
+                objproducto.state = state
+                ActualizarProduct(raiz.context,objproducto,cod.toLong())
+                val fproducto = ProductFragment()
+                DialogoCRUD("Actualizacion de Producto", "Se Actualizo el Producto Correctamente",fproducto)
+            }else{
+                objutilidad.MensajeToast(raiz.context,"Seleccione un elemento de la lista")
+                lstPro.requestFocus()
+            }
+        }
+        btnEliminarProd.setOnClickListener {
+            if(fila>=0){
+                cod = lblCodPro.text.toString().toInt()
 
-            registrarProducto(raiz.context,objproducto)
-            val fproducto = ProductFragment()
-            DialogoCRUD("Registro de Producto", "Se registro el Producto Correctamente",fproducto)
 
-            ActualizarProduct(raiz.context,objproducto,cod.toLong())
+                EliminarProduct(raiz.context,cod.toLong())
+                val fproducto = ProductFragment()
+                DialogoCRUDEliminar("¿Eliminar el Producto?", "¿Desea Eliminar el Producto?",fproducto)
+
+            }else{
+                objutilidad.MensajeToast(raiz.context,"Seleccione un elemento de la lista")
+                lstPro.requestFocus()
+            }
         }
 
 
@@ -438,6 +454,22 @@ class ProductFragment : Fragment() {
         })
     }
 
+    fun EliminarProduct(context: Context, id: Long){
+        val call = productService!!.EliminarProduct(id)
+        call!!.enqueue(object: Callback<List<Product>?>{
+            override fun onResponse(call: Call<List<Product>?>, response: Response<List<Product>?>) {
+                if(response.isSuccessful){
+                    Log.e("mensaje","Se elimino correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Product>?>, t: Throwable) {
+                Log.e("Error",t.message!!)
+            }
+
+        })
+    }
+
     fun DialogoCRUD(titulo: String, mensaje: String, fragment: Fragment) {
         dialogo = AlertDialog.Builder(context)
         dialogo!!.setTitle(titulo)
@@ -452,6 +484,25 @@ class ProductFragment : Fragment() {
         }
         dialogo!!.show()
     }
+
+    fun DialogoCRUDEliminar(titulo: String, mensaje: String, fragment: Fragment) {
+        dialogo = AlertDialog.Builder(context)
+        dialogo!!.setTitle(titulo)
+        dialogo!!.setMessage(mensaje)
+        dialogo!!.setCancelable(false)
+        dialogo!!.setPositiveButton("Sí") { dialogo, which ->
+            val fra = fragment
+            ft = fragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor, fra, null)
+            ft?.addToBackStack(null)
+            ft?.commit()
+        }
+        dialogo!!.setNegativeButton("No") { dialog, which ->
+            dialog.dismiss()
+        }
+        dialogo!!.show()
+    }
+
 
     companion object {
         /**
