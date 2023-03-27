@@ -36,7 +36,6 @@ class AdaptadorProduct(context: Context?, private val listProduct: List<Product>
             val objproduct = getItem(p0) as Product
             val lblidprode = vista!!.findViewById<TextView>(R.id.lblidproducE)
             val lblname_p = vista!!.findViewById<TextView>(R.id.lblname_p_E)
-            val lbldescripE = vista!!.findViewById<TextView>(R.id.lbldescripE)
             val lblpriceE = vista!!.findViewById<TextView>(R.id.lblpriceE)
             val lblstockE = vista!!.findViewById<TextView>(R.id.lblstockE)
             val lblstateE = vista!!.findViewById<TextView>(R.id.lblstateE)
@@ -45,7 +44,6 @@ class AdaptadorProduct(context: Context?, private val listProduct: List<Product>
 
             lblidprode.text = ""+objproduct.idproduc
             lblname_p.text = ""+objproduct.name_p
-            lbldescripE.text = ""+objproduct.description
             lblpriceE.text = ""+objproduct.price
             lblstockE.text = ""+objproduct.stock
             if(objproduct.state == 1)

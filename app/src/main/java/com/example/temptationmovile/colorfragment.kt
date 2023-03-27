@@ -12,7 +12,6 @@ import android.widget.*
 import com.example.temptationmovile.databinding.ColorfragmentBinding
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.adaptadores.AdaptadorColor
-import com.example.temptationmovile.clases.Brand
 import com.example.temptationmovile.clases.Color
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.ColorService
@@ -77,7 +76,7 @@ class colorfragment : Fragment() {
         val raiz = inflater.inflate(R.layout.colorfragment, container, false)
         //
         txtcolor = raiz.findViewById(R.id.txtcolor)
-        chbestado = raiz.findViewById(R.id.chbestado)
+        chbestado = raiz.findViewById(R.id.chkStateColor)
         lblidcolor = raiz.findViewById(R.id.lblidcolor)
         btnregistrar_color = raiz.findViewById(R.id.btnregistrar_color)
         btnactualizar_color = raiz.findViewById(R.id.btnactualizar_color)

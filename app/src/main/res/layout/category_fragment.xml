@@ -63,8 +63,8 @@
                 android:text="Estado" />
 
             <CheckBox
-                android:id="@+id/chbestado"
-                android:layout_width="58dp"
+                android:id="@+id/chkStateCategory"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Activar" />
