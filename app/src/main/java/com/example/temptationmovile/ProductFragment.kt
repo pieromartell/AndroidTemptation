@@ -1,5 +1,6 @@
 package com.example.temptationmovile
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
@@ -205,7 +206,7 @@ class ProductFragment : Fragment() {
 
                 registrarProducto(raiz.context,objproducto)
                 val fproducto = ProductFragment()
-                DialogoCRUD("Registro de Producto", "Se registro el Producto Correctamente",fproducto)
+                DialogoCRUDEliminar("Registro de Producto", "Se registro el Producto Correctamente",fproducto)
 
             }
         }
@@ -292,7 +293,7 @@ class ProductFragment : Fragment() {
                 objproducto.state = state
                 ActualizarProduct(raiz.context,objproducto,cod.toLong())
                 val fproducto = ProductFragment()
-                DialogoCRUD("Actualizacion de Producto", "Se Actualizo el Producto Correctamente",fproducto)
+                DialogoCRUDEliminar("Actualizacion de Producto", "Se Actualizo el Producto Correctamente",fproducto)
             }else{
                 objutilidad.MensajeToast(raiz.context,"Seleccione un elemento de la lista")
                 lstPro.requestFocus()
@@ -403,8 +404,9 @@ class ProductFragment : Fragment() {
 
         })
     }
+
     fun mostrarproduct(context: Context){
-    val call = productService!!.MostrarProduct()
+        val call = productService!!.MostrarProduct()
         call!!.enqueue(object :Callback<List<Product>>{
             override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
                 if(response.isSuccessful){
