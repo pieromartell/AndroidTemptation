@@ -255,6 +255,48 @@ class ProductFragment : Fragment() {
             }
         }
 
+        btnActualizarProd.setOnClickListener {
+            cod = lblCodPro.text.toString().toInt()
+            nom =txtNomPro.text.toString()
+            descri = txtdescrip.text.toString()
+            price = txtprice.text.toString().toDouble()
+            stock = txtStock.text.toString().toInt()
+            idbramd = cbobrad.selectedItemPosition
+            codbrand = (registroBrand as ArrayList<Brand>).get(idbramd).idbrand
+            idcolor = cbocolor.selectedItemPosition
+            codcolor = (registrocolor as ArrayList<Color>).get(idcolor).idcolor
+            idcategory = cbocategory.selectedItemPosition
+            codcategory = (registrocategory as ArrayList<Category>).get(idcategory).idcat
+            idstyle = cbostyle.selectedItemPosition
+            codstyle = (registrostyle as ArrayList<Style>).get(idstyle).idstyles
+            idsize = cbosize.selectedItemPosition
+            codsize = (registrosize as ArrayList<Size>).get(idsize).idsize
+            state = if (chkEstPro.isChecked) 1 else 0
+
+
+
+            objproducto.idproduc = cod
+            objproducto.idcat = codcategory
+            objproducto.idsize = codsize
+            objproducto.idstyles = codstyle
+            objproducto.idbrand = codbrand
+            objproducto.idcolor = codcolor
+            objproducto.name_p = nom
+            objproducto.description = descri
+            objproducto.price = price
+            objproducto.stock = stock
+            objproducto.image_front = 0
+            objproducto.image_back = 0
+            objproducto.image_using = 0
+            objproducto.state = state
+
+            registrarProducto(raiz.context,objproducto)
+            val fproducto = ProductFragment()
+            DialogoCRUD("Registro de Producto", "Se registro el Producto Correctamente",fproducto)
+
+            ActualizarProduct(raiz.context,objproducto,cod.toLong())
+        }
+
 
 
         return  raiz
@@ -380,7 +422,21 @@ class ProductFragment : Fragment() {
 
         })
     }
+    fun ActualizarProduct(context: Context, p:Product, id: Long ){
+        val call = productService!!.ActualizarProduct(id,p)
+        call!!.enqueue(object : Callback<List<Product>?>{
+            override fun onResponse(call: Call<List<Product>?>, response: Response<List<Product>?>) {
+                if(response.isSuccessful){
+                    Log.e("Mensaje", "Se actualizo correctamente el Producto")
+                }
+            }
 
+            override fun onFailure(call: Call<List<Product>?>, t: Throwable) {
+                Log.e("Error: ",t.message!!)
+            }
+
+        })
+    }
 
     fun DialogoCRUD(titulo: String, mensaje: String, fragment: Fragment) {
         dialogo = AlertDialog.Builder(context)
