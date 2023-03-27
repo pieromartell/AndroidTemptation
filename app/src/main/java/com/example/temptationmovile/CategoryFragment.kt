@@ -11,9 +11,7 @@ import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.adaptadores.AdaptadorCategory
 import com.example.temptationmovile.clases.Category
-import com.example.temptationmovile.clases.Color
 import com.example.temptationmovile.databinding.CategoryFragmentBinding
-import com.example.temptationmovile.databinding.ColorfragmentBinding
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.CategoryService
 import com.example.temptationmovile.utilidad.Util
@@ -75,7 +73,7 @@ class CategoryFragment : Fragment() {
         val raiz = inflater.inflate(R.layout.category_fragment, container, false)
         //
         txtcat = raiz.findViewById(R.id.txtcat)
-        chbestado = raiz.findViewById(R.id.chbestado)
+        chbestado = raiz.findViewById(R.id.chkStateCategory)
         lblidcat = raiz.findViewById(R.id.lblidcat)
         btnregistrar_cat = raiz.findViewById(R.id.btnregistrar_cat)
         btnactualizar_cat = raiz.findViewById(R.id.btnactualizar_cat)

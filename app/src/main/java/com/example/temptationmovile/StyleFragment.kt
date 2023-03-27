@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.adaptadores.AdaptadorStyle
-import com.example.temptationmovile.clases.Category
 import com.example.temptationmovile.clases.Style
 import com.example.temptationmovile.databinding.CategoryFragmentBinding
 import com.example.temptationmovile.remoto.ApiUtil
@@ -73,7 +72,7 @@ class StyleFragment : Fragment() {
         val raiz =  inflater.inflate(R.layout.style_fragment, container, false)
 
         txtstyle = raiz.findViewById(R.id.txtstyle)
-        chbestado = raiz.findViewById(R.id.chbestado)
+        chbestado = raiz.findViewById(R.id.chkStateStyle)
         lblidstyle = raiz.findViewById(R.id.lblidstyle)
         btnregistrar_style = raiz.findViewById(R.id.btnregistrar_style)
         btnactualizar_style = raiz.findViewById(R.id.btnactualizar_style)

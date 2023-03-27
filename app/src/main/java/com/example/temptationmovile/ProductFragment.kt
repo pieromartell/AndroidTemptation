@@ -1,6 +1,6 @@
 package com.example.temptationmovile
 
-import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -8,12 +8,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.Spinner
+import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.adaptadores.*
 import com.example.temptationmovile.clases.*
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.*
+import com.example.temptationmovile.utilidad.Util
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,12 +44,36 @@ class ProductFragment : Fragment() {
    private lateinit var cbocategory: Spinner
    private lateinit var cbostyle: Spinner
    private lateinit var lstPro: ListView
+   private lateinit var txtNomPro: EditText
+   private lateinit var txtdescrip: EditText
+   private lateinit var txtStock: EditText
+   private lateinit var txtprice: EditText
+   private lateinit var chkEstPro: CheckBox
+   private lateinit var lblCodPro: TextView
+   private lateinit var btnRegistrarProd: Button
+   private lateinit var btnActualizarProd: Button
+   private lateinit var btnEliminarProd: Button
 
    private val objBrand = Brand()
+    private val objproducto = Product()
     private var cod = 0
     private var nom = ""
-    private var est = false
+    private var descri = ""
+    private var stock = 0
+    private var price = 0.0
+    private var idbramd = 0
+    private var codbrand = 0
+    private var idcolor = 0
+    private var codcolor = 0
+    private var idstyle = 0
+    private var codstyle = 0
+    private var idcategory = 0
+    private var codcategory = 0
+    private var idsize = 0
+    private var codsize = 0
+    private var state = 1
     private var fila = -1
+    private var pos = -1
     val raiz = null
 
     private var brandService: BrandService? = null
@@ -60,7 +90,11 @@ class ProductFragment : Fragment() {
     private var registrocategory: List<Category>? = null
     private var registroBrand: List<Brand>? = null
 
+    var objutilidad =  Util()
 
+    private var dialogo: AlertDialog.Builder? = null
+
+    var ft: FragmentTransaction?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -74,12 +108,23 @@ class ProductFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val raiz = inflater.inflate(R.layout.fragment_product, container, false)
+        txtNomPro = raiz.findViewById(R.id.txtnombreProd)
+        txtdescrip = raiz.findViewById(R.id.txtdescripcionProd)
+        txtStock = raiz.findViewById(R.id.txtstockProd)
+        txtprice =raiz.findViewById(R.id.txtpriceProd)
+        lblCodPro = raiz.findViewById(R.id.codProduct)
+        chkEstPro = raiz.findViewById(R.id.chkStateProd)
+        btnRegistrarProd =raiz.findViewById(R.id.btnregistrarproduct)
+        btnEliminarProd = raiz.findViewById(R.id.btneliminarproduct)
+        btnActualizarProd =raiz.findViewById(R.id.btnactualizarproduct)
+
         cbobrad = raiz.findViewById(R.id.cboBrand)
         cbocategory = raiz.findViewById(R.id.cboCategory)
         cbocolor = raiz.findViewById(R.id.cbocolor)
         cbosize = raiz.findViewById(R.id.cboSize)
         cbostyle = raiz.findViewById(R.id.cboStyle)
         lstPro = raiz.findViewById(R.id.lstPro)
+
 
         registroBrand = ArrayList()
         registroProducto = ArrayList()
@@ -101,6 +146,63 @@ class ProductFragment : Fragment() {
         mostrarComboColor(raiz.context)
         mostrarComboCategory(raiz.context)
         mostrarcomboSize(raiz.context)
+
+
+        btnRegistrarProd.setOnClickListener {
+            if(txtNomPro.text.toString() ==""){
+                objutilidad.MensajeToast(raiz.context,"Ingresa el Nombre")
+                txtNomPro.requestFocus()
+            }else if(txtdescrip.text.toString() == ""){
+                objutilidad.MensajeToast(raiz.context,"Ingresa la descripcion")
+                txtdescrip.requestFocus()
+            }else if(txtprice.text.toString()==""){
+                objutilidad.MensajeToast(raiz.context,"Ingrese un precio")
+                txtprice.requestFocus()
+            }else if(txtStock.text.toString()==""){
+                objutilidad.MensajeToast(raiz.context,"Ingrese el stock")
+                txtStock.requestFocus()
+            }else if(cbobrad.selectedItemPosition==-1){
+                objutilidad.MensajeToast(raiz.context,"Seleccionne una Marca")
+                cbobrad.requestFocus()
+            }else{
+                nom =txtNomPro.text.toString()
+                descri = txtdescrip.text.toString()
+                price = txtprice.text.toString().toDouble()
+                stock = txtStock.text.toString().toInt()
+                idbramd = cbobrad.selectedItemPosition
+                codbrand = (registroBrand as ArrayList<Brand>).get(idbramd).idbrand
+                idcolor = cbocolor.selectedItemPosition
+                codcolor = (registrocolor as ArrayList<Color>).get(idcolor).idcolor
+                idcategory = cbocategory.selectedItemPosition
+                codcategory = (registrocategory as ArrayList<Category>).get(idcategory).idcat
+                idstyle = cbostyle.selectedItemPosition
+                codstyle = (registrostyle as ArrayList<Style>).get(idstyle).idstyles
+                idsize = cbosize.selectedItemPosition
+                codsize = (registrosize as ArrayList<Size>).get(idsize).idsize
+                state = if (chkEstPro.isChecked) 1 else 0
+
+
+
+                objproducto.idcat = codcategory
+                objproducto.idsize = codsize
+                objproducto.idstyles = codstyle
+                objproducto.idbrand = codbrand
+                objproducto.idcolor = codcolor
+                objproducto.name_p = nom
+                objproducto.description = descri
+                objproducto.price = price
+                objproducto.stock = stock
+                objproducto.image_front = 0
+                objproducto.image_back = 0
+                objproducto.image_using = 0
+                objproducto.state = state
+
+                registrarProducto(raiz.context,objproducto)
+                val fproducto = ProductFragment()
+                DialogoCRUD("Registro de Producto", "Se registro el Producto Correctamente",fproducto)
+
+            }
+        }
         return  raiz
     }
     fun mostrarComboBrand(context: Context){
@@ -207,6 +309,38 @@ class ProductFragment : Fragment() {
             }
 
         })
+    }
+
+    fun registrarProducto(context: Context, p:Product){
+        val call = productService!!.RegistrarProduct(p)
+        call!!.enqueue(object :Callback<Product?>{
+            override fun onResponse(call: Call<Product?>, response: Response<Product?>) {
+                if(response.isSuccessful){
+                    objutilidad.MensajeToast(context, "Se registro el producto")
+                }
+            }
+
+            override fun onFailure(call: Call<Product?>, t: Throwable) {
+                Log.e("Error: ", t.message!!)
+            }
+
+        })
+    }
+
+
+    fun DialogoCRUD(titulo: String, mensaje: String, fragment: Fragment) {
+        dialogo = AlertDialog.Builder(context)
+        dialogo!!.setTitle(titulo)
+        dialogo!!.setMessage(mensaje)
+        dialogo!!.setCancelable(false)
+        dialogo!!.setPositiveButton("Ok") { dialogo, which ->
+            val fra = fragment
+            ft = fragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor, fra, null)
+            ft?.addToBackStack(null)
+            ft?.commit()
+        }
+        dialogo!!.show()
     }
 
     companion object {

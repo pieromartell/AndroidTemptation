@@ -68,7 +68,7 @@ class brandFragmene : Fragment() {
         val raiz=inflater.inflate(R.layout.brand_fragment,container,false)
         //creamos los controles
         txtNomb=raiz.findViewById(R.id.txtnombreBrand)
-        chbEst=raiz.findViewById(R.id.chbestado)
+        chbEst=raiz.findViewById(R.id.chkStatebrand)
         lblCodCat=raiz.findViewById(R.id.lblidbrand)
         btnRegistra=raiz.findViewById(R.id.btnregistrar)
         btnActualizar=raiz.findViewById(R.id.btnactualizar)
@@ -94,7 +94,7 @@ class brandFragmene : Fragment() {
                 objbrand.name_brand = name_brand
                 objbrand.state = state
                 Log.e(objbrand.name_brand, (objbrand.state).toString())
-                registrar(raiz.context, objbrand)
+                registrarbrand(raiz.context, objbrand)
                 DialogoCRUD(
                     "Registro de Brand",
                     "Se registro la nueva Brand correctamente",
@@ -174,7 +174,7 @@ class brandFragmene : Fragment() {
 
         })
     }
-    fun registrar(context: Context,c:Brand){
+    fun registrarbrand(context: Context, c:Brand){
         val call = brandservice!!.RegistrarBrand(c)
         call!!.enqueue(object :Callback<Brand?>{
             override fun onResponse(call: Call<Brand?>, response: Response<Brand?>) {

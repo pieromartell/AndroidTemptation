@@ -25,14 +25,6 @@
             android:textColor="#FF0303" />
 
         <TextView
-            android:id="@+id/lbldescripE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textColor="#FF0303" />
-
-        <TextView
             android:id="@+id/lblpriceE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

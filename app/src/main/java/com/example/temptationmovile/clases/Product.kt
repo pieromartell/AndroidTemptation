@@ -32,7 +32,7 @@ class Product {
     @Expose
     var name_p: String = ""
 
-    @SerializedName("descriptopm")
+    @SerializedName("description")
     @Expose
     var description: String = ""
 
