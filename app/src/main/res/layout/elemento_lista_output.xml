@@ -40,12 +40,5 @@
             android:textColor="#FF0303"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/lblestado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="#FF0303"
-            android:text="TextView" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

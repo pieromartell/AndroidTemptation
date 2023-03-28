@@ -4,7 +4,7 @@ import com.example.temptationmovile.servicios.*
 
 object ApiUtil {
 
-    val API_URL = "http://192.168.1.36:3000/"
+    val API_URL = "http://192.168.18.4:3000/"
 
 
     val brandservice: BrandService?
@@ -33,5 +33,8 @@ object ApiUtil {
 
     val productService: ProductService?
         get() = RetrofitClient.getClient(API_URL)?.create(ProductService::class.java)
+
+    val outputService: OutputService?
+        get() = RetrofitClient.getClient(API_URL)?.create(OutputService::class.java)
 
 }

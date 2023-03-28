@@ -1,6 +1,5 @@
 package com.example.temptationmovile
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -153,8 +152,10 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_detail).commit()
                 true
             }
-            R.id.jmisalir -> {
-                this.finish()
+            R.id.jmioutput -> {
+                val frag_output = OutputFragment()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_output).commit()
                 true
             }
             else -> super.onOptionsItemSelected(item)

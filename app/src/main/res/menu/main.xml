@@ -38,6 +38,6 @@
         android:id="@+id/jmidetailincome"
         android:title="Detalle Compra" />
     <item
-        android:id="@+id/jmisalir"
-        android:title="Salir" />
+        android:id="@+id/jmioutput"
+        android:title="Output" />
 </menu>
