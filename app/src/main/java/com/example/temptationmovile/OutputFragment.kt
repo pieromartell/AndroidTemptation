@@ -94,6 +94,7 @@ class OutputFragment : Fragment() {
         outputService = ApiUtil.outputService
 
         mostrarComboProduc(raiz.context)
+        mostrarOutput(raiz.context)
 
 
 
@@ -136,6 +137,7 @@ class OutputFragment : Fragment() {
 
         })
     }
+
 
 
 
