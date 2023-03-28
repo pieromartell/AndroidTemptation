@@ -23,6 +23,9 @@ import com.example.temptationmovile.utilidad.Util
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class OutputFragment : Fragment() {
 
@@ -39,7 +42,16 @@ class OutputFragment : Fragment() {
     private val objoutput = Output()
     private var cod = 0
     private var nom = ""
-    private var fecha = ""
+
+
+
+    private var fecha = Calendar.getInstance().time
+    private val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
+    private var fechaAct = formatoFecha.format(fecha)
+    private var fechita = fechaAct
+
+    private var fa = "20/07/2023"
+
     private var destino = ""
     private var cantidad = 0
     private var idproduc = 0
@@ -79,6 +91,7 @@ class OutputFragment : Fragment() {
 
         txtcant = raiz.findViewById(R.id.txtcant)
         txtfecha = raiz.findViewById(R.id.txtfecha)
+
         txtdestino = raiz.findViewById(R.id.txtdestino)
         chbestado_out = raiz.findViewById(R.id.chbestado_out)
         lblidout = raiz.findViewById(R.id.lblidout)
@@ -95,8 +108,83 @@ class OutputFragment : Fragment() {
 
         mostrarComboProduc(raiz.context)
         mostrarOutput(raiz.context)
+        //fechaAct = txtfecha.text.toString()
+        txtfecha.setText(fechaAct)
 
 
+        btnRegistrar_out.setOnClickListener {
+            if(txtcant.text.toString() == ""){
+                objutilidad.MensajeToast(raiz.context,"Ingresa la Cantidad")
+                txtcant.requestFocus()
+            }else if (txtdestino.text.toString() == ""){
+                objutilidad.MensajeToast(raiz.context,"Ingresa el Destino")
+                txtdestino.requestFocus()
+            }else if(cboproducto.selectedItemPosition == -1){
+                objutilidad.MensajeToast(raiz.context,"Seleccione un Producto")
+            }
+            else{
+                cantidad = txtcant.text.toString().toInt()
+                destino = txtdestino.text.toString()
+                idproduc = cboproducto.selectedItemPosition
+                codproduc = (registroProducto as ArrayList<Product>).get(idproduc).idproduc
+                state = if (chbestado_out.isChecked) 1 else 0
+                fechita = fechaAct
+
+                objoutput.idproduc = codproduc
+                objoutput.quantity = cantidad
+                objoutput.dateout = fechita
+                objoutput.destino = destino
+                objoutput.state = state
+
+                registrarOutput(raiz.context,objoutput)
+                val foutput = OutputFragment()
+                DialogoCRUDv2("Registro de Salida","Se registro la salida correctamente",foutput)
+
+            }
+        }
+        lstout.setOnItemClickListener { adapterView, view, i, l ->
+            fila = i
+            lblidout.text = (registroOutput as ArrayList<Output>).get(fila).idout.toString()
+            txtcant.setText(""+(registroOutput as ArrayList<Output>).get(fila).quantity.toString().toInt())
+            txtfecha.setText(""+(registroOutput as ArrayList<Output>).get(fila).dateout.toString())
+            txtdestino.setText(""+(registroOutput as ArrayList<Output>).get(fila).destino.toString())
+            for(x in (registroProducto as ArrayList<Product>).indices){
+                if((registroProducto as ArrayList<Product>).get(x).idproduc == (registroOutput as ArrayList<Output>).get(fila).idproduc){
+                    indiceProduct = x
+                }
+            }
+            cboproducto.setSelection(indiceProduct)
+            if ((registroOutput as ArrayList<Output>).get(fila).state != 0){
+                chbestado_out.setChecked(true)
+            }else{
+                chbestado_out.setChecked(false)
+            }
+        }
+
+        btnActualizar_out.setOnClickListener {
+            if(fila>=0){
+                cod = lblidout.text.toString().toInt()
+                cantidad = txtcant.text.toString().toInt()
+                destino = txtdestino.text.toString()
+                idproduc = cboproducto.selectedItemPosition
+                codproduc = (registroProducto as ArrayList<Product>).get(idproduc).idproduc
+                state = if (chbestado_out.isChecked) 1 else 0
+                fechita = fechaAct
+
+                objoutput.idproduc = codproduc
+                objoutput.quantity = cantidad
+                objoutput.dateout = fechita
+                objoutput.destino = destino
+                objoutput.state = state
+
+                actualizarOutput(raiz.context,objoutput,cod.toLong())
+                val foutput = OutputFragment()
+                DialogoCRUDv2("Actualización de Salida","Se actualizó la salida correctamente",foutput)
+            }else{
+                objutilidad.MensajeToast(raiz.context,"Seleccione un elemento de la lista")
+                lstout.requestFocus()
+            }
+        }
 
         return  raiz
     }
@@ -138,9 +226,55 @@ class OutputFragment : Fragment() {
         })
     }
 
+    fun registrarOutput(context:Context,o:Output){
+        val call = outputService!!.RegistrarOutput(o)
+        call!!.enqueue(object :Callback<Output?>{
+            override fun onResponse(call: Call<Output?>, response: Response<Output?>) {
+                if(response.isSuccessful){
+                    objutilidad.MensajeToast(context, "Se registro el producto")
+                }
+            }
+
+            override fun onFailure(call: Call<Output?>, t: Throwable) {
+                Log.e("Error: ", t.message!!)
+            }
+
+        })
+    }
+    fun actualizarOutput(context:Context,o:Output,id:Long){
+        val call = outputService!!.ActualizarProduct(id,o)
+        call!!.enqueue(object :Callback<List<Output>?>{
+            override fun onResponse(call: Call<List<Output>?>, response: Response<List<Output>?>) {
+                if(response.isSuccessful){
+                    Log.e("Mensaje", "Se actualizo correctamente la Salida")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Output>?>, t: Throwable) {
+                Log.e("Error: ",t.message!!)
+            }
+
+        })
+    }
 
 
-
+    fun DialogoCRUDv2(titulo: String, mensaje: String, fragment: Fragment) {
+        dialogo = AlertDialog.Builder(context)
+        dialogo!!.setTitle(titulo)
+        dialogo!!.setMessage(mensaje)
+        dialogo!!.setCancelable(false)
+        dialogo!!.setPositiveButton("Sí") { dialogo, which ->
+            val fra = fragment
+            ft = fragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor, fra, null)
+            ft?.addToBackStack(null)
+            ft?.commit()
+        }
+        dialogo!!.setNegativeButton("No") { dialog, which ->
+            dialog.dismiss()
+        }
+        dialogo!!.show()
+    }
 
 
 
