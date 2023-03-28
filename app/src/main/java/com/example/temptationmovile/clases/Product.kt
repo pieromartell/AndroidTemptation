@@ -46,15 +46,15 @@ class Product {
 
     @SerializedName("image_front")
     @Expose
-    var image_front: Int = 0
+    var image_front: String = ""
 
     @SerializedName("image_back")
     @Expose
-    var image_back: Int = 0
+    var image_back: String = ""
 
     @SerializedName("image_using")
     @Expose
-    var image_using: Int = 0
+    var image_using: String = ""
 
     var state: Int = 0;
 
@@ -72,9 +72,9 @@ class Product {
         description: String,
         price: Double,
         stock: Int,
-        image_front: Int,
-        image_back: Int,
-        image_using: Int,
+        image_front: String,
+        image_back: String,
+        image_using: String,
         state: Int
     ) {
         this.idproduc = idproduc

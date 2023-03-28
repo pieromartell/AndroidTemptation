@@ -199,9 +199,9 @@ class ProductFragment : Fragment() {
                 objproducto.description = descri
                 objproducto.price = price
                 objproducto.stock = stock
-                objproducto.image_front = 0
-                objproducto.image_back = 0
-                objproducto.image_using = 0
+                objproducto.image_front = ""
+                objproducto.image_back = ""
+                objproducto.image_using = ""
                 objproducto.state = state
 
                 registrarProducto(raiz.context,objproducto)
@@ -287,9 +287,9 @@ class ProductFragment : Fragment() {
                 objproducto.description = descri
                 objproducto.price = price
                 objproducto.stock = stock
-                objproducto.image_front = 0
-                objproducto.image_back = 0
-                objproducto.image_using = 0
+                objproducto.image_front = ""
+                objproducto.image_back = ""
+                objproducto.image_using = ""
                 objproducto.state = state
                 ActualizarProduct(raiz.context,objproducto,cod.toLong())
                 val fproducto = ProductFragment()
