@@ -40,4 +40,7 @@ object ApiUtil {
     val incomeService: IncomeService?
         get() = RetrofitClient.getClient(API_URL)?.create(IncomeService::class.java)
 
+    val detailincomeService: DetailIncomeService?
+        get() = RetrofitClient.getClient(API_URL)?.create(DetailIncomeService::class.java)
+
 }
