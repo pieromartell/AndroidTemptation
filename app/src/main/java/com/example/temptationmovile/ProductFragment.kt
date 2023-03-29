@@ -98,9 +98,7 @@ class ProductFragment : Fragment() {
     private var registroBrand: List<Brand>? = null
 
     var objutilidad =  Util()
-
     private var dialogo: AlertDialog.Builder? = null
-
     var ft: FragmentTransaction?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

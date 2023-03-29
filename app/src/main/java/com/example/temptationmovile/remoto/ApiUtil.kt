@@ -37,4 +37,7 @@ object ApiUtil {
     val outputService: OutputService?
         get() = RetrofitClient.getClient(API_URL)?.create(OutputService::class.java)
 
+    val incomeService: IncomeService?
+        get() = RetrofitClient.getClient(API_URL)?.create(IncomeService::class.java)
+
 }

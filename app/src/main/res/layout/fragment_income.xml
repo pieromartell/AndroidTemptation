@@ -34,16 +34,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="Proveedor" />
 
-            <EditText
-                android:id="@+id/btnnombrecompra"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/cboprovidersincome"
+                android:layout_width="223dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -57,10 +54,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="Fecha" />
 
             <EditText
-                android:id="@+id/txtfechacompra"
+                android:id="@+id/txtfechacomprainco"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,25 +71,25 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnregistrarcompra"
+                android:id="@+id/btnregistrarincome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Registrar" />
 
             <Button
-                android:id="@+id/btnactualizarcompra"
+                android:id="@+id/btndeta_inco"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Actualizar" />
+                android:text="Ir a Detalle" />
 
             <Button
-                android:id="@+id/btneliminarcompra"
+                android:id="@+id/btnsalirincome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Eliminar" />
+                android:text="Salir" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +98,7 @@
             android:orientation="horizontal">
 
             <ListView
-                android:id="@+id/lstcompra"
+                android:id="@+id/lstincome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
