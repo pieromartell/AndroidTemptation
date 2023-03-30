@@ -2,9 +2,9 @@ package com.example.temptationmovile
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +12,11 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.temptationmovile.adaptadores.AdaptadorComboBrand
 import com.example.temptationmovile.adaptadores.AdaptadorComboProvider
 import com.example.temptationmovile.adaptadores.AdaptadorIncome
-import com.example.temptationmovile.clases.Brand
 import com.example.temptationmovile.clases.Income
-import com.example.temptationmovile.clases.Product
 import com.example.temptationmovile.clases.Provider
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.IncomeService
@@ -29,7 +27,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,6 +43,7 @@ class incomeFragment : Fragment() {
     private lateinit var cboprovider : Spinner
     private lateinit var btnregistroinco : Button
     private lateinit var btnsalirincome : Button
+    private lateinit var btndeta_income : Button
     private lateinit var txtfechainco : TextView
     private lateinit var lstinco : ListView
 
@@ -92,6 +90,7 @@ class incomeFragment : Fragment() {
         cboprovider = raiz.findViewById(R.id.cboprovidersincome)
         btnsalirincome = raiz.findViewById(R.id.btnsalirincome)
         btnregistroinco = raiz.findViewById(R.id.btnregistrarincome)
+        btndeta_income = raiz.findViewById(R.id.btndeta_inco)
         lstinco = raiz.findViewById(R.id.lstincome)
         registroIncome = ArrayList()
         registroProvider = ArrayList()
@@ -146,6 +145,7 @@ class incomeFragment : Fragment() {
 
             }
         }*/
+
 
 
         return raiz

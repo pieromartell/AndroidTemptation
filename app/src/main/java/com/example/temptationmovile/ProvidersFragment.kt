@@ -1,6 +1,7 @@
 package com.example.temptationmovile
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.temptationmovile.clases.Provider
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.adaptadores.AdaptadorProvider
+import com.example.temptationmovile.clases.*
 import com.example.temptationmovile.databinding.BrandFragmentBinding
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.ProviderService
@@ -64,6 +65,7 @@ class ProvidersFragment : Fragment() {
     private var providerservice: ProviderService? = null
     private var registroprovider: List<Provider>?=null
     var objutilidad =  Util()
+    private var dialogo: AlertDialog.Builder? = null
 
     //creamos transicion para fragmento
     var ft: FragmentTransaction?= null
@@ -165,6 +167,55 @@ class ProvidersFragment : Fragment() {
 
             }
         )
+
+        btn_Eliminar.setOnClickListener {
+            if(fila>=0){
+                idprovider = lbl_CodProv.text.toString().toInt()
+
+
+                EliminarProduct(raiz.context,idprovider.toLong())
+                val fprovider = ProvidersFragment()
+                DialogoCRUDEliminar("¿Eliminar el Producto?", "¿Desea Eliminar el Producto?",fprovider)
+
+            }else{
+                objutilidad.MensajeToast(raiz.context,"Seleccione un elemento de la lista")
+                lst_Provider.requestFocus()
+            }
+        }
+
+        btn_Actualizar.setOnClickListener {
+            if(fila >=0){
+                idprovider = lbl_CodProv.text.toString().toInt()
+                name_prov =txt_Nomb.text.toString()
+                ruc = txt_RucProv.text.toString()
+                company_name = txt_EmpresaProv.text.toString()
+                phone = txt_TelefonoProv.text.toString().toInt()
+                email = txt_EmailProv.text.toString()
+                description = txt_DescripcionPro.text.toString()
+                address = txt_DireccionProv.text.toString()
+                state = if (chb_Est.isChecked) 1 else 0
+
+
+
+                objprob.idprovider = idprovider
+                objprob.name_prov = name_prov
+                objprob.ruc = ruc
+                objprob.company_name = company_name
+                objprob.phone = phone
+                objprob.email = email
+                objprob.description = description
+                objprob.address = address
+                objprob.state = state
+                ActualizarProvider(raiz.context,objprob,idprovider.toLong())
+                val fprovider = ProvidersFragment()
+                DialogoCRUDEliminar("Actualizacion de Proveedor", "¿Quiere Actualizar el Proveedor?",fprovider)
+            }else{
+                objutilidad.MensajeToast(raiz.context,"Seleccione un elemento de la lista")
+                lst_Provider.requestFocus()
+            }
+        }
+
+
         return raiz
 
 
@@ -205,6 +256,56 @@ class ProvidersFragment : Fragment() {
             }
 
         })
+    }
+
+    fun ActualizarProvider(context: Context, p:Provider, id: Long ){
+        val call = providerservice!!.ActualizarProvider(id,p)
+        call!!.enqueue(object : Callback<List<Provider>?>{
+            override fun onResponse(call: Call<List<Provider>?>, response: Response<List<Provider>?>) {
+                if(response.isSuccessful){
+                    Log.e("Mensaje", "Se actualizo correctamente el Proveedor")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Provider>?>, t: Throwable) {
+                Log.e("Error: ",t.message!!)
+            }
+
+        })
+    }
+
+    fun EliminarProduct(context: Context, id: Long){
+        val call = providerservice!!.EliminarrProvider(id)
+        call!!.enqueue(object: Callback<List<Provider>?>{
+            override fun onResponse(call: Call<List<Provider>?>, response: Response<List<Provider>?>) {
+                if(response.isSuccessful){
+                    Log.e("mensaje","Se elimino correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Provider>?>, t: Throwable) {
+                Log.e("Error",t.message!!)
+            }
+
+        })
+    }
+
+    fun DialogoCRUDEliminar(titulo: String, mensaje: String, fragment: Fragment) {
+        dialogo = AlertDialog.Builder(context)
+        dialogo!!.setTitle(titulo)
+        dialogo!!.setMessage(mensaje)
+        dialogo!!.setCancelable(false)
+        dialogo!!.setPositiveButton("Sí") { dialogo, which ->
+            val fra = fragment
+            ft = fragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor, fra, null)
+            ft?.addToBackStack(null)
+            ft?.commit()
+        }
+        dialogo!!.setNegativeButton("No") { dialog, which ->
+            dialog.dismiss()
+        }
+        dialogo!!.show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

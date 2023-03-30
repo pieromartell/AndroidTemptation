@@ -13,9 +13,9 @@ interface ProviderService {
     fun RegistrarProvider(@Body b: Provider): Call<Provider>?
 
     @PUT("provider/{idprovider}")
-    fun ActualizarProvider(@Path("idprovider") id: Long, @Body b: Provider): Call<Provider>?
+    fun ActualizarProvider(@Path("idprovider") id: Long, @Body b: Provider): Call<List<Provider>?>?
 
 
     @DELETE("provider/{idprovider}")
-    fun EliminarrProvider(@Path("idprovider") id: Long ): Call<Provider>?
+    fun EliminarrProvider(@Path("idprovider") id: Long ): Call<List<Provider>?>?
 }
