@@ -1,5 +1,6 @@
 package com.example.temptationmovile
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -55,6 +56,7 @@ class SizeFragment : Fragment() {
     var objutil = Util()
 
     var ft: FragmentTransaction?=null
+    private var dialogo: AlertDialog.Builder? = null
 
     private var _binding: FragmentSizeBinding?=null
 
@@ -97,10 +99,34 @@ class SizeFragment : Fragment() {
 
                 //actualizamos el rol
                 val fsiz = SizeFragment()
-                ft = fragmentManager?.beginTransaction()
-                ft?.replace(R.id.contenedor,fsiz,null)
-                ft?.addToBackStack(null)
-                ft?.commit()
+                DialogoCRUD("Registro de Talla","Se registro la talla",fsiz)
+            }
+        }
+        btnActualizar_siz.setOnClickListener {
+            if(fila>=0){
+                idsize =  lblCodSiz.getText().toString().toInt()
+                namesize =  txtSiz.getText().toString()
+                state =  if (chbEst.isChecked) 1 else 0
+                objSiz.idsize = idsize
+                objSiz.name_size = namesize
+                objSiz.state = state
+                AnctualizarSize(raiz.context, objSiz, idsize.toLong())
+                val fra = SizeFragment()
+                DialogoCRUD("Actualización de talla", "Se actualizo la talla",fra)
+            }else{
+                lstSize.requestFocus()
+            }
+        }
+
+        btnEliminar_siz.setOnClickListener {
+            if(fila>=0){
+                idsize = lblCodSiz.getText().toString().toInt()
+                objSiz.idsize = idsize
+                EliminarSize(raiz.context,idsize.toLong())
+                val fra =  SizeFragment()
+                DialogoCRUD("Eliminar la talla", "Se elimino la talla",fra)
+            }else{
+                lstSize.requestFocus()
             }
         }
 
@@ -123,7 +149,7 @@ class SizeFragment : Fragment() {
 
     fun mostrarSize(context: Context){
         val call = sizeService!!.Mostrarsizes()
-        call!!.enqueue(object: Callback<List<Size>?> {
+        call.enqueue(object: Callback<List<Size>?> {
             override fun onResponse(call: Call<List<Size>?>, response: Response<List<Size>?>) {
                 if (response.isSuccessful){
                     registroSize=response.body()
@@ -150,6 +176,52 @@ class SizeFragment : Fragment() {
             }
 
         })
+    }
+
+    fun AnctualizarSize(context: Context, b: Size, id: Long ){
+        val call = sizeService!!.Actualizarsize(id,b)
+        call!!.enqueue(object : Callback<List<Size>?>{
+            override fun onResponse(call: Call<List<Size>?>, response: Response<List<Size>?>) {
+                if(response.isSuccessful){
+                    Log.e("Mensaje", "Se actualizo correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Size>?>, t: Throwable) {
+                Log.e("Error: ",t.message!!)
+            }
+
+        })
+    }
+    fun EliminarSize(context: Context, id: Long){
+        val call = sizeService!!.Eliminarrsize(id)
+        call!!.enqueue(object: Callback<List<Size>?>{
+            override fun onResponse(call: Call<List<Size>?>, response: Response<List<Size>?>) {
+                if(response.isSuccessful){
+                    Log.e("mensaje","Se elimino correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Size>?>, t: Throwable) {
+                Log.e("Error",t.message!!)
+            }
+
+        })
+    }
+
+    fun DialogoCRUD(titulo: String, mensaje: String, fragment: Fragment) {
+        dialogo = AlertDialog.Builder(context)
+        dialogo!!.setTitle(titulo)
+        dialogo!!.setMessage(mensaje)
+        dialogo!!.setCancelable(false)
+        dialogo!!.setPositiveButton("Ok") { dialogo, which ->
+            val fra = fragment
+            ft = fragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor, fra, null)
+            ft?.addToBackStack(null)
+            ft?.commit()
+        }
+        dialogo!!.show()
     }
 
     override fun onDestroyView() {
