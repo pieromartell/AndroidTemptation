@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/txti"
+    android:id="@+id/frmdetailincome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailIncomeFragment">
@@ -141,14 +141,13 @@
                 android:layout_weight="1"
                 android:text="IGV" />
 
-            <EditText
+            <TextView
                 android:id="@+id/txtigvdetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
-                android:hint="IGV"
-                android:inputType="textPersonName" />
+                android:text="0.18" />
+
         </LinearLayout>
 
         <LinearLayout

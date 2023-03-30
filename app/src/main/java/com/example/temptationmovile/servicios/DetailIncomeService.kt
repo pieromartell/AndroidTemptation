@@ -10,7 +10,7 @@ interface DetailIncomeService {
     fun MostrarDetailIncomes(): Call<List<DetailIncome>>
 
     @POST("detailincome")
-    fun RegistrarDetailIncome(@Body p: DetailIncome): Call<DetailIncome>
+    fun RegistrarDetailIncome(@Body p: DetailIncome): Call<DetailIncome>?
 
     @PUT("detailincome/{iddetincome}")
     fun ActualizarDetailIncome(@Path("iddetincome") id: Long, @Body p: DetailIncome): Call<List<DetailIncome>?>?

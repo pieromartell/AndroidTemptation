@@ -40,11 +40,11 @@ class DetailIncomeFragment : Fragment() {
     private lateinit var lbldetidincome: TextView
     private lateinit var txtPrecioDetail: EditText
     private lateinit var txtCantidadDetail: EditText
-    private lateinit var txtIgvDetail: EditText
+    private lateinit var txtIgvDetail: TextView
     private lateinit var btnRegistrarDetail: Button
     private lateinit var btnActualizarDetail: Button
     private lateinit var btnSalirDetail: Button
-    private lateinit var lstdetailinco: ListView
+    private lateinit var lstdetailincome: ListView
 
     private val objproducto = Product()
     private val objdetailincome = DetailIncome()
@@ -56,7 +56,7 @@ class DetailIncomeFragment : Fragment() {
     private var codproductodetail= 0
     private var preciodetail= 0.0
     private var cantidaddetail= 0
-    private var igvdetail= 0.0
+    private var igvdetail= 0.18
     private var fila = -1
     private var pos = -1
     val raiz = null
@@ -99,8 +99,8 @@ class DetailIncomeFragment : Fragment() {
         txtIgvDetail = raiz.findViewById(R.id.txtigvdetail)
         btnRegistrarDetail = raiz.findViewById(R.id.btnregistrardetail)
         btnActualizarDetail = raiz.findViewById(R.id.btnactualizardetail)
-        btnRegistrarDetail = raiz.findViewById(R.id.btnsalirdetail)
-        lstdetailinco = raiz.findViewById(R.id.lstdetailincome)
+        btnSalirDetail = raiz.findViewById(R.id.btnsalirdetail)
+        lstdetailincome = raiz.findViewById(R.id.lstdetailincome)
 
 
         registroProducto=ArrayList()
@@ -134,8 +134,8 @@ class DetailIncomeFragment : Fragment() {
             } else{
                 preciodetail = txtPrecioDetail.text.toString().toDouble()
                 cantidaddetail = txtCantidadDetail.text.toString().toInt()
-                igvdetail = txtPrecioDetail.text.toString().toDouble()
-                idincomedetail = cboProducDetaill.selectedItemPosition
+                //igvdetail = txtIgvDetail.text.toString().toDouble()
+                idincomedetail = cboIdIncome.selectedItemPosition
                 codincomedetail = (registroIncome as ArrayList<Income>).get(idincomedetail).idincome
                 idproductodetail = cboProducDetaill.selectedItemPosition
                 codproductodetail = (registroProducto as ArrayList<Product>).get(idproductodetail).idproduc
@@ -145,6 +145,8 @@ class DetailIncomeFragment : Fragment() {
                 objdetailincome.price_buy = preciodetail
                 objdetailincome.quantity = cantidaddetail
                 objdetailincome.igv = igvdetail
+
+                println(objdetailincome).toString()
 
                 registroDetailIncome(raiz.context,objdetailincome)
                 val fdetailincome = DetailIncomeFragment()
@@ -159,7 +161,7 @@ class DetailIncomeFragment : Fragment() {
                 coddetail = lbldetidincome.text.toString().toInt()
                 preciodetail = txtPrecioDetail.text.toString().toDouble()
                 cantidaddetail = txtCantidadDetail.text.toString().toInt()
-                igvdetail = txtPrecioDetail.text.toString().toDouble()
+                //igvdetail = txtPrecioDetail.text.toString().toDouble()
                 idproductodetail = cboProducDetaill.selectedItemPosition
                 codproductodetail = (registroProducto as ArrayList<Product>).get(idproductodetail).idproduc
                 idincomedetail = cboProducDetaill.selectedItemPosition
@@ -172,15 +174,15 @@ class DetailIncomeFragment : Fragment() {
                 objdetailincome.igv = igvdetail
 
                 actualizarDetailIncome(raiz.context,objdetailincome,coddetail.toLong())
-                val fproducto = ProductFragment()
-                DialogoCRUD("Actualizacion de Producto", "Se Actualizo el Producto Correctamente",fproducto)
+                val fdetailincome = DetailIncomeFragment()
+                DialogoCRUD("Actualizacion de Producto", "Se Actualizo el Producto Correctamente",fdetailincome)
             }else{
                 objutilidad.MensajeToast(raiz.context,"Seleccione un elemento de la lista")
-                lstdetailinco.requestFocus()
+                lstdetailincome.requestFocus()
             }
         }
 
-        lstdetailinco.setOnItemClickListener { adapterView, view, i, l ->
+        lstdetailincome.setOnItemClickListener { adapterView, view, i, l ->
             fila = i
             lbldetidincome.text = (registroDetail as ArrayList<DetailIncome>).get(fila).iddetincome.toString()
             txtCantidadDetail.setText(""+ (registroDetail as ArrayList<DetailIncome>).get(fila).quantity.toString().toInt())
@@ -216,7 +218,7 @@ class DetailIncomeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<DetailIncome?>, t: Throwable) {
-                Log.e("Error: ", t.message!!)
+                println("Error Detalle: ").toString()
             }
 
         })
@@ -280,7 +282,7 @@ class DetailIncomeFragment : Fragment() {
                 if(response.isSuccessful){
                     println("Correcto")
                     registroDetail = response.body()
-                    lstdetailinco.adapter = AdaptadorDetailIncome(context, registroDetail!!)
+                    lstdetailincome.adapter = AdaptadorDetailIncome(context, registroDetail!!)
                 }else{
                     println("Error")
                 }
