@@ -23,7 +23,7 @@ class AdaptadorOutput(context: Context?, private val listoutput: List<Output>?):
     }
 
     override fun getItem(p0: Int): Any {
-        return listoutput!![0]
+        return listoutput!![p0]
     }
 
     override fun getItemId(p0: Int): Long {
