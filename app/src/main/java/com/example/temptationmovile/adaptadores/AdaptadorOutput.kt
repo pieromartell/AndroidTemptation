@@ -40,7 +40,7 @@ class AdaptadorOutput(context: Context?, private val listoutput: List<Output>?):
             val lblcant = vista!!.findViewById<TextView>(R.id.lblcant)
             val lbldestino = vista!!.findViewById<TextView>(R.id.lbldestino)
 
-            lblidoutput.text = ""+objoutput.idproduc
+            lblidoutput.text = ""+objoutput.idout
             lblidprod.text = ""+objoutput.idproduc
             lblcant.text = ""+objoutput.quantity
             lbldestino.text = ""+objoutput.destino

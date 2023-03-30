@@ -40,7 +40,7 @@ class AdaptadorIncome(context: Context?, private val listIncome:List<Income>): B
 
 
 
-            lstidincome.text =""+objincome.idprovider
+            lstidincome.text =""+objincome.idincome
             lstnomproviders.text = ""+objincome.idprovider
             lstfechaincome.text = ""+objincome.dateinco
         }
