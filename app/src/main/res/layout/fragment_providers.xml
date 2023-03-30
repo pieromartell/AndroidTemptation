@@ -19,7 +19,11 @@
                 android:id="@+id/textView24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Proveedores" />
+                android:text="Proveedores"
+                android:textAlignment="center"
+                android:textColor="@color/purple_500"
+                android:textSize="20dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -40,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="Ingresa Nombre "
                 android:inputType="textPersonName" />
         </LinearLayout>
 
@@ -61,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="Ingresa RUC"
                 android:inputType="textPersonName" />
 
             <TextView
@@ -76,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint='Ingresa "SAC"'
                 android:inputType="textPersonName" />
         </LinearLayout>
 
@@ -97,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="Ingresa Telefono"
                 android:inputType="textPersonName" />
         </LinearLayout>
 
@@ -118,8 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Ingresa Correo"
+                android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
@@ -140,8 +148,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Ingresa Descripcion"
+                android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
@@ -162,8 +170,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Ingresa Direccion"
+                android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
