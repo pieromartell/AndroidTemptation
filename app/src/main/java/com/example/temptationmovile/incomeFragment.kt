@@ -27,6 +27,9 @@ import com.example.temptationmovile.utilidad.Util
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,6 +66,11 @@ class incomeFragment : Fragment() {
     private var registroIncome: List<Income>? = null
     private var registroProvider: List<Provider>? = null
 
+    private var fecha = Calendar.getInstance().time
+    private val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
+    private var fechaAct = formatoFecha.format(fecha)
+    private var fechita = fechaAct
+
     var objutilidad =  Util()
     private var dialogo: AlertDialog.Builder? = null
     var ft: FragmentTransaction?= null
@@ -93,6 +101,8 @@ class incomeFragment : Fragment() {
         mostrarComboProvider(raiz.context)
         mostrarincome(raiz.context)
 
+        txtfechainco.setText(fechaAct)
+
         btnregistroinco.setOnClickListener {
             if(cboprovider.selectedItemPosition==-1){
                 objutilidad.MensajeToast(raiz.context,"Seleccionne un Proveedor")
@@ -101,12 +111,13 @@ class incomeFragment : Fragment() {
                 objutilidad.MensajeToast(raiz.context, "Ingresa la fecha")
                 txtfechainco.requestFocus()
             }else{
-                fechaincome=txtfechainco.text.toString()
+                //fechaincome=txtfechainco.text.toString()
+                fechita = fechaAct
                 idProvider = cboprovider.selectedItemPosition
                 codProvider = (registroProvider as ArrayList<Provider>).get(idProvider).idprovider
 
                 objIncome.idprovider=codProvider
-                objIncome.dateinco=fechaincome
+                objIncome.dateinco=fechita
 
                 registroIncome(raiz.context,objIncome)
                 val fincome = incomeFragment()
