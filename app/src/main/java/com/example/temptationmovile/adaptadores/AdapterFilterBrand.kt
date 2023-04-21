@@ -46,11 +46,10 @@ class AdapterFilterBrand(context: Context?, private val listBrand: List<Brand>?)
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         var vista = p1
-        val objcategoria = listFilBrand!![p0]
+        val objbrand = listFilBrand!![p0]
         if(vista == null) {
             vista = layoutInflater.inflate(R.layout.elemento_lista_brand, p2, false);
         }
-            val objbrand =  getItem(p0) as Brand
             //creamos los controladores
             val lstidbrand = vista!!.findViewById<TextView>(R.id.lstidband)
             val lstname_brand = vista!!.findViewById<TextView>(R.id.lstname_brand)

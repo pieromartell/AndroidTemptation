@@ -1,18 +1,23 @@
-package com.example.temptationmovile
+package com.example.temptationmovile.FragmentosBusqueda
 
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ListView
+import android.widget.SearchView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.temptationmovile.adaptadores.Adaptadorbrand
+import com.example.temptationmovile.R
 import com.example.temptationmovile.adaptadores.AdapterFilterBrand
 import com.example.temptationmovile.clases.Brand
+import com.example.temptationmovile.clases.Rol
 import com.example.temptationmovile.databinding.BrandFragmentBinding
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.BrandService
@@ -21,11 +26,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  * Use the [busquedaBrand.newInstance] factory method to
@@ -33,8 +33,11 @@ private const val ARG_PARAM2 = "param2"
  */
 class busquedaBrand : Fragment() {
     // TODO: Rename and change types of parameters
+
     private lateinit var txtBusquedaBrand: SearchView
     private lateinit var lstbrandBusqueda: ListView
+    private lateinit var btnbuscarbrand :Button
+    private lateinit var txtIdBrand: TextView
 
     val objbrand = Brand()
     private var idbrand = 0
@@ -45,7 +48,7 @@ class busquedaBrand : Fragment() {
     private lateinit var binding: BrandFragmentBinding
     private var brandservice: BrandService? = null
     private var registrobrand: List<Brand>?=null
-    var objutilidad =  Util()
+    var objutilidad = Util()
 
     //creamos transicion para fragmento
     var ft: FragmentTransaction?= null
@@ -66,6 +69,10 @@ class busquedaBrand : Fragment() {
 
         lstbrandBusqueda=raiz.findViewById(R.id.lstBrandBuscar)
 
+        btnbuscarbrand = raiz.findViewById(R.id.btnbuscarbrand)
+
+        txtIdBrand = raiz.findViewById(R.id.txtIdBuscarbrand)
+
         registrobrand = ArrayList()
 
         brandservice = ApiUtil.brandservice
@@ -85,6 +92,37 @@ class busquedaBrand : Fragment() {
             }
         })
 
+        lstbrandBusqueda.setOnItemClickListener(
+            { adapterView, view,i, id ->
+                fila = i
+                objbrand.idbrand=(registrobrand as ArrayList<Brand>).get(fila!!).idbrand
+                objbrand.name_brand=(registrobrand as ArrayList<Brand>).get(fila!!).name_brand
+                objbrand.state=(registrobrand as ArrayList<Brand>).get(fila!!).state
+                //asignamos los valores a cada control
+                txtIdBrand.setText(objbrand.idbrand.toString())
+                if(objbrand.state != 0){
+                    btnbuscarbrand.setText("Deshabilitar")
+                }else{
+                    btnbuscarbrand.setText("Habilitar")
+                }
+            }
+        )
+
+        btnbuscarbrand.setOnClickListener {
+            if (txtIdBrand.text.toString().length>0){
+                if (objbrand.state==1){
+                    EliminarBrand(objbrand.idbrand.toLong())
+                    DialogoCRUD("Marca","Se deshabilitó la marca "+objbrand.name_brand,busquedaBrand())
+                }else{
+                    objbrand.state=1
+                    ActualizarBrand(objbrand,objbrand.idbrand.toLong())
+                    DialogoCRUD("Marca","Se habilitó la marca "+objbrand.name_brand,busquedaBrand())
+                }
+            }else{
+                Toast.makeText(raiz.context,"Debe Seleccionar una marca", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         return raiz
     }
 
@@ -98,7 +136,7 @@ class busquedaBrand : Fragment() {
             ) {
                 if(response.isSuccessful){
                     registrobrand = response.body()
-                    lstbrandBusqueda.adapter = AdapterFilterBrand(context,registrobrand)
+                    lstbrandBusqueda.adapter = AdapterFilterBrand(context, registrobrand)
                 }
             }
 
@@ -108,7 +146,36 @@ class busquedaBrand : Fragment() {
 
         })
     }
+    fun ActualizarBrand(b: Brand, id: Long ){
+        val call = brandservice!!.ActualizarBrand(id,b)
+        call!!.enqueue(object : Callback<List<Brand>?>{
+            override fun onResponse(call: Call<List<Brand>?>, response: Response<List<Brand>?>) {
+                if(response.isSuccessful){
+                    Log.e("Mensaje", "Se actualizo correctamente")
+                }
+            }
 
+            override fun onFailure(call: Call<List<Brand>?>, t: Throwable) {
+                Log.e("Error: ",t.message!!)
+            }
+
+        })
+    }
+    fun EliminarBrand(id: Long){
+        val call = brandservice!!.EliminarBrand(id)
+        call!!.enqueue(object: Callback<List<Brand>?>{
+            override fun onResponse(call: Call<List<Brand>?>, response: Response<List<Brand>?>) {
+                if(response.isSuccessful){
+                    Log.e("mensaje","Se elimino correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Brand>?>, t: Throwable) {
+                Log.e("Error",t.message!!)
+            }
+
+        })
+    }
 
 
 

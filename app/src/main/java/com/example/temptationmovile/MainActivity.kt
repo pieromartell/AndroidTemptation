@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.example.temptationmovile.FragmentosBusqueda.busquedaBrand
 import com.example.temptationmovile.databinding.ActivityMainBinding
 import com.example.temptationmovile.ui.home.HomeFragment
 
