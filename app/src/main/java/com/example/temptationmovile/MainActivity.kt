@@ -16,6 +16,8 @@ import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarCategoria
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarPerson
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarRol
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarSize
+import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarProduct
+import com.example.temptationmovile.FragmentosBusqueda.FragmentobusquedaBrand
 import com.example.temptationmovile.databinding.ActivityMainBinding
 import com.example.temptationmovile.ui.home.HomeFragment
 
@@ -188,6 +190,18 @@ class MainActivity : AppCompatActivity() {
                 val frag_output = OutputFragment()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_output).commit()
+                true
+            }
+            R.id.jmiBusquedaBrand -> {
+                val frag_fragmentobusquedaBrand = FragmentobusquedaBrand()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_fragmentobusquedaBrand).commit()
+                true
+            }
+            R.id.jmiBuscarProduct -> {
+                val frag_fragmentobusquedaProduc = FragmentoBuscarProduct()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_fragmentobusquedaProduc).commit()
                 true
             }
             else -> super.onOptionsItemSelected(item)
