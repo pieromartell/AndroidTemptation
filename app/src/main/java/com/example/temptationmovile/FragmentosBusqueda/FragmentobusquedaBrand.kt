@@ -15,9 +15,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.R
-import com.example.temptationmovile.adaptadores.AdapterFilterBrand
+import com.example.temptationmovile.adaptadores.AdaptadorFilterBrand
 import com.example.temptationmovile.clases.Brand
-import com.example.temptationmovile.clases.Rol
 import com.example.temptationmovile.databinding.BrandFragmentBinding
 import com.example.temptationmovile.remoto.ApiUtil
 import com.example.temptationmovile.servicios.BrandService
@@ -28,10 +27,10 @@ import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
- * Use the [busquedaBrand.newInstance] factory method to
+ * Use the [FragmentobusquedaBrand.newInstance] factory method to
  * create an instance of this fragment.
  */
-class busquedaBrand : Fragment() {
+class FragmentobusquedaBrand : Fragment() {
     // TODO: Rename and change types of parameters
 
     private lateinit var txtBusquedaBrand: SearchView
@@ -86,7 +85,7 @@ class busquedaBrand : Fragment() {
                 return false
             }
             override fun onQueryTextChange(newText: String?): Boolean {
-                (lstbrandBusqueda.adapter as AdapterFilterBrand).filter(newText ?: "")
+                (lstbrandBusqueda.adapter as AdaptadorFilterBrand).filter(newText ?: "")
 
                 return true
             }
@@ -112,11 +111,11 @@ class busquedaBrand : Fragment() {
             if (txtIdBrand.text.toString().length>0){
                 if (objbrand.state==1){
                     EliminarBrand(objbrand.idbrand.toLong())
-                    DialogoCRUD("Marca","Se deshabilitó la marca "+objbrand.name_brand,busquedaBrand())
+                    DialogoCRUD("Marca","Se deshabilitó la marca "+objbrand.name_brand,FragmentobusquedaBrand())
                 }else{
                     objbrand.state=1
                     ActualizarBrand(objbrand,objbrand.idbrand.toLong())
-                    DialogoCRUD("Marca","Se habilitó la marca "+objbrand.name_brand,busquedaBrand())
+                    DialogoCRUD("Marca","Se habilitó la marca "+objbrand.name_brand,FragmentobusquedaBrand())
                 }
             }else{
                 Toast.makeText(raiz.context,"Debe Seleccionar una marca", Toast.LENGTH_SHORT).show()
@@ -136,7 +135,7 @@ class busquedaBrand : Fragment() {
             ) {
                 if(response.isSuccessful){
                     registrobrand = response.body()
-                    lstbrandBusqueda.adapter = AdapterFilterBrand(context, registrobrand)
+                    lstbrandBusqueda.adapter = AdaptadorFilterBrand(context, registrobrand)
                 }
             }
 

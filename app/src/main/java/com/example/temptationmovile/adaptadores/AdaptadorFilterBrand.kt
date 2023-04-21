@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.example.temptationmovile.R
 import com.example.temptationmovile.clases.Brand
 
-class AdapterFilterBrand(context: Context?, private val listBrand: List<Brand>?): BaseAdapter() {
+class AdaptadorFilterBrand(context: Context?, private val listBrand: List<Brand>?): BaseAdapter() {
     private val layoutInflater: LayoutInflater
     private var listFilBrand: List<Brand>? = null
 
