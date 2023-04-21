@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarCategoria
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarPerson
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarRol
@@ -19,7 +20,13 @@ import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarSize
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarProduct
 import com.example.temptationmovile.FragmentosBusqueda.FragmentobusquedaBrand
 import com.example.temptationmovile.FragmentosBusqueda.*
+
+import com.example.temptationmovile.FragmentosBusqueda.FragmentBuscarDetailIncome
+import com.example.temptationmovile.FragmentosBusqueda.FragmentBuscarIncome
+import com.example.temptationmovile.FragmentosBusqueda.FragmentBuscarProvider
+
 import com.example.temptationmovile.databinding.ActivityMainBinding
+import com.example.temptationmovile.databinding.FragmentBuscarDetailIncomeBinding
 import com.example.temptationmovile.ui.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
@@ -207,6 +214,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_output).commit()
                 true
             }
+
             R.id.jmiBusquedaBrand -> {
                 val frag_fragmentobusquedaBrand = FragmentobusquedaBrand()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
@@ -225,6 +233,24 @@ class MainActivity : AppCompatActivity() {
                 val frag_output = FragmentoBuscarOutput()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_output).commit()
+
+            R.id.jmiBusquedaProvider -> {
+                val frag_bus_provider = FragmentBuscarProvider()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_bus_provider).commit()
+                true
+            }
+            R.id.jmiBusquedaIncome -> {
+                val frag_bus_income = FragmentBuscarIncome()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_bus_income).commit()
+                true
+            }
+            R.id.jmiBusquedaDetailIncome -> {
+                val frag_bus_detailincome = FragmentBuscarDetailIncome()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_bus_detailincome).commit()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
