@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                         }else{
                             Toast.makeText(
                                 applicationContext,
-                                "Usuario no Encontrado",
+                                "Usuario no Permitido",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

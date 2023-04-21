@@ -54,6 +54,7 @@ class FragmentoBuscarPerson : Fragment() {
             { adapterView, view,i, id ->
                 fila = i
                 objPerson.idperson=(registroPerson as ArrayList<Person>).get(fila!!).idperson
+                objPerson.idrol=(registroPerson as ArrayList<Person>).get(fila!!).idrol
                 objPerson.name=(registroPerson as ArrayList<Person>).get(fila!!).name
                 objPerson.dni=(registroPerson as ArrayList<Person>).get(fila!!).dni
                 objPerson.address=(registroPerson as ArrayList<Person>).get(fila!!).address
