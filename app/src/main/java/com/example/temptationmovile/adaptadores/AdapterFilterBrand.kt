@@ -26,7 +26,7 @@ class AdapterFilterBrand(context: Context?, private val listBrand: List<Brand>?)
         }else{
             listBrand?.filter {
                 Log.e("LogAda","realizar filtrado")
-                it.name_brand!!.lowercase().contains(texto.lowercase())
+                it.name_brand!!.lowercase().contains(texto.lowercase()) || it.idbrand!!.toString().contains(texto)
             }
         }
         notifyDataSetChanged()
@@ -37,7 +37,7 @@ class AdapterFilterBrand(context: Context?, private val listBrand: List<Brand>?)
     }
 
     override fun getItem(p0: Int): Any {
-        return listBrand!![p0]
+        return listFilBrand!![p0]
     }
 
     override fun getItemId(p0: Int): Long {
@@ -46,8 +46,10 @@ class AdapterFilterBrand(context: Context?, private val listBrand: List<Brand>?)
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         var vista = p1
-        if(vista == null){
-            vista = layoutInflater.inflate(R.layout.elemento_lista_brand,p2,false);
+        val objcategoria = listFilBrand!![p0]
+        if(vista == null) {
+            vista = layoutInflater.inflate(R.layout.elemento_lista_brand, p2, false);
+        }
             val objbrand =  getItem(p0) as Brand
             //creamos los controladores
             val lstidbrand = vista!!.findViewById<TextView>(R.id.lstidband)
@@ -61,7 +63,6 @@ class AdapterFilterBrand(context: Context?, private val listBrand: List<Brand>?)
             }else{
                 lststate.text = "Desabilitado"
             }
-        }
         return vista!!;
     }
 }

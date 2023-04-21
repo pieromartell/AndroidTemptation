@@ -158,6 +158,12 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_output).commit()
                 true
             }
+            R.id.jmiBusquedaBrand -> {
+                val frag_busquedaBrand = busquedaBrand()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_busquedaBrand).commit()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

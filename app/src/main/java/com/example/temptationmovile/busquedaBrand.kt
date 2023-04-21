@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.adaptadores.Adaptadorbrand
+import com.example.temptationmovile.adaptadores.AdapterFilterBrand
 import com.example.temptationmovile.clases.Brand
 import com.example.temptationmovile.databinding.BrandFragmentBinding
 import com.example.temptationmovile.remoto.ApiUtil
@@ -32,7 +33,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class busquedaBrand : Fragment() {
     // TODO: Rename and change types of parameters
-    private lateinit var txtNomb: EditText
+    private lateinit var txtBusquedaBrand: SearchView
     private lateinit var lstbrandBusqueda: ListView
 
     val objbrand = Brand()
@@ -61,7 +62,7 @@ class busquedaBrand : Fragment() {
         // Inflate the layout for this fragment
         val raiz=inflater.inflate(R.layout.fragment_busqueda_brand,container,false)
         //creamos los controles
-        txtNomb=raiz.findViewById(R.id.txtnombreBrand)
+        txtBusquedaBrand=raiz.findViewById(R.id.txtbusquedabrand)
 
         lstbrandBusqueda=raiz.findViewById(R.id.lstBrandBuscar)
 
@@ -72,75 +73,18 @@ class busquedaBrand : Fragment() {
 
         mostrarBrand(raiz.context)
 
+        txtBusquedaBrand.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
 
-        btnRegistra.setOnClickListener {
-            if (txtNomb.getText().toString() == "") {
-                objutilidad.MensajeToast(raiz.context, "Ingrese el Nombre")
-                txtNomb.requestFocus()
-            } else {
-                name_brand = txtNomb.getText().toString()
-                state = if (chbEst.isChecked) 1 else 0
-                //envienadoo los valores
-                objbrand.name_brand = name_brand
-                objbrand.state = state
-                Log.e(objbrand.name_brand, (objbrand.state).toString())
-                registrarbrand(raiz.context, objbrand)
-                DialogoCRUD(
-                    "Registro de Brand",
-                    "Se registro la nueva Brand correctamente",
-                    brandFragmene()
-                )
-
-                //actualizamos el brand
-//                val fbrand = brandFragmene()
-//                ft = fragmentManager?.beginTransaction()
-//                ft?.replace(R.id.contenedor,fbrand,null)
-//                ft?.addToBackStack(null)
-//                ft?.commit()
+                return false
             }
-        }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                (lstbrandBusqueda.adapter as AdapterFilterBrand).filter(newText ?: "")
 
-        btnActualizar.setOnClickListener {
-            if(fila>=0){
-                idbrand =  lblCodCat.getText().toString().toInt()
-                name_brand =  txtNomb.getText().toString()
-                state =  if (chbEst.isChecked) 1 else 0
-                objbrand.idbrand = idbrand
-                objbrand.name_brand = name_brand
-                objbrand.state = state
-                AnctualizarBrand(raiz.context, objbrand, idbrand.toLong())
-                val fbramd = brandFragmene()
-                DialogoCRUD("Actualizacion de Brand", "Se actualizo el Brand",fbramd)
-            }else{
-                lstbrand.requestFocus()
+                return true
             }
-        }
+        })
 
-        btnEliminar.setOnClickListener {
-            if(fila>=0){
-                idbrand = lblCodCat.getText().toString().toInt()
-                objbrand.idbrand = idbrand
-                EliminarBrand(raiz.context,idbrand.toLong())
-                val fbrand =  brandFragmene()
-                DialogoCRUD("Eliminar el Brand", "Se elimino el Brand",fbrand)
-            }else{
-                lstbrand.requestFocus()
-            }
-        }
-        lstbrand.setOnItemClickListener(
-            { adapterView, view,i, id ->
-                fila = i
-                //asignamos los valores a cada control
-                lblCodCat.setText(""+(registrobrand as ArrayList<Brand>).get(fila).idbrand)
-                txtNomb.setText(""+(registrobrand as ArrayList<Brand>).get(fila).name_brand)
-                if((registrobrand as ArrayList<Brand>).get(fila).state != 0){
-                    chbEst.setChecked(true)
-                }else{
-                    chbEst.setChecked(false)
-                }
-
-            }
-        )
         return raiz
     }
 
@@ -154,58 +98,12 @@ class busquedaBrand : Fragment() {
             ) {
                 if(response.isSuccessful){
                     registrobrand = response.body()
-                    lstbrand.adapter = Adaptadorbrand(context,registrobrand)
+                    lstbrandBusqueda.adapter = AdapterFilterBrand(context,registrobrand)
                 }
             }
 
             override fun onFailure(call: Call<List<Brand>?>, t: Throwable) {
                 Log.e("Error: ", t.message.toString())
-            }
-
-        })
-    }
-    fun registrarbrand(context: Context, c:Brand){
-        val call = brandservice!!.RegistrarBrand(c)
-        call!!.enqueue(object : Callback<Brand?> {
-            override fun onResponse(call: Call<Brand?>, response: Response<Brand?>) {
-                if(response.isSuccessful){
-                    objutilidad.MensajeToast(context, "Se registro la marca")
-                }
-            }
-
-            override fun onFailure(call: Call<Brand?>, t: Throwable) {
-                Log.e("Error: ", t.message!!)
-            }
-
-        })
-    }
-
-    fun AnctualizarBrand(context: Context, b:Brand, id: Long ){
-        val call = brandservice!!.ActualizarBrand(id,b)
-        call!!.enqueue(object : Callback<List<Brand>?> {
-            override fun onResponse(call: Call<List<Brand>?>, response: Response<List<Brand>?>) {
-                if(response.isSuccessful){
-                    Log.e("Mensaje", "Se actualizo correctamente")
-                }
-            }
-
-            override fun onFailure(call: Call<List<Brand>?>, t: Throwable) {
-                Log.e("Error: ",t.message!!)
-            }
-
-        })
-    }
-    fun EliminarBrand(context: Context, id: Long){
-        val call = brandservice!!.EliminarBrand(id)
-        call!!.enqueue(object: Callback<List<Brand>?> {
-            override fun onResponse(call: Call<List<Brand>?>, response: Response<List<Brand>?>) {
-                if(response.isSuccessful){
-                    Log.e("mensaje","Se elimino correctamente")
-                }
-            }
-
-            override fun onFailure(call: Call<List<Brand>?>, t: Throwable) {
-                Log.e("Error",t.message!!)
             }
 
         })

@@ -9,6 +9,9 @@
             <item
                 android:id="@+id/Categoria"
                 android:title="jmiBusquedaCategory" />
+            <item
+                android:id="@+id/jmiBusquedaBrand"
+                android:title="Busqueda Brand" />
         </menu>
     </item>
     <item
