@@ -12,10 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarCategoria
-import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarPerson
-import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarRol
-import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarSize
+import com.example.temptationmovile.FragmentosBusqueda.*
 import com.example.temptationmovile.databinding.ActivityMainBinding
 import com.example.temptationmovile.ui.home.HomeFragment
 
@@ -182,6 +179,13 @@ class MainActivity : AppCompatActivity() {
                 val frag_busquedaCat = FragmentoBuscarCategoria()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_busquedaCat).commit()
+                true
+            }
+            R.id.jmiBusquedaColor -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_busquedaColor = FragmentoBuscarColor()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_busquedaColor).commit()
                 true
             }
             R.id.jmioutput -> {

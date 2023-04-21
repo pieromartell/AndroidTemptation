@@ -18,6 +18,9 @@
             <item
                 android:id="@+id/jmiBusquedaPerson"
                 android:title="Buscar Personal" />
+            <item
+                android:id="@+id/jmiBusquedaColor"
+                android:title="Color" />
         </menu>
     </item>
     <item
