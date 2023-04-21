@@ -39,12 +39,16 @@ class AdaptadorOutput(context: Context?, private val listoutput: List<Output>?):
             val lblidprod = vista!!.findViewById<TextView>(R.id.lblidprod)
             val lblcant = vista!!.findViewById<TextView>(R.id.lblcant)
             val lbldestino = vista!!.findViewById<TextView>(R.id.lbldestino)
-
+            val lblEstadoOut=vista!!.findViewById<TextView>(R.id.lblEstadoOut)
             lblidoutput.text = ""+objoutput.idout
             lblidprod.text = ""+objoutput.idproduc
             lblcant.text = ""+objoutput.quantity
             lbldestino.text = ""+objoutput.destino
-
+            if (objoutput.state==1){
+                lblEstadoOut.text="Habilitado"
+            }else{
+                lblEstadoOut.text="Deshabilitado"
+            }
         }
         return vista!!
     }

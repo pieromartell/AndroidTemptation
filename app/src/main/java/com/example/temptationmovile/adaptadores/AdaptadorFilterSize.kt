@@ -57,7 +57,7 @@ class AdaptadorFilterSize(context: Context?, private val listsize: List<Size>?):
             listsize
         } else {
             listsize?.filter {
-                it.idsize!!.toString().lowercase().contains(texto.lowercase()) || it.name_size!!.toString().contains(texto)
+                it.idsize!!.toString().lowercase().contains(texto.lowercase()) || it.name_size!!.toString().contains(texto.lowercase())
             }
         }
         notifyDataSetChanged()
