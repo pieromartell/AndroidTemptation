@@ -188,6 +188,13 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_busquedaColor).commit()
                 true
             }
+            R.id.jmiBusquedaStyle -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_busquedaStyle = FragmentoBuscarStyle()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_busquedaStyle).commit()
+                true
+            }
             R.id.jmioutput -> {
                 val frag_output = OutputFragment()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
