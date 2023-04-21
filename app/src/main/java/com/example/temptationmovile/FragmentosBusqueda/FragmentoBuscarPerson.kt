@@ -7,11 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import android.widget.SearchView
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.R
-import com.example.temptationmovile.adaptadores.AdaptadorPerson
+import com.example.temptationmovile.adaptadores.AdaptadorFilterPerson
 import com.example.temptationmovile.clases.Person
 import com.example.temptationmovile.databinding.FragmentoBuscarPersonBinding
 import com.example.temptationmovile.remoto.ApiUtil
@@ -45,7 +46,7 @@ class FragmentoBuscarPerson : Fragment() {
                 return false
             }
             override fun onQueryTextChange(newText: String?): Boolean {
-                (binding.lstPersonBusqueda.adapter as AdaptadorPerson).filter(newText ?: "")
+                (binding.lstPersonBusqueda.adapter as AdaptadorFilterPerson).filter(newText ?: "")
                 return true
             }
         })
@@ -98,7 +99,7 @@ class FragmentoBuscarPerson : Fragment() {
                 if(response.isSuccessful){
                     println("Correcto")
                     registroPerson = response.body()
-                    binding.lstPersonBusqueda.adapter = AdaptadorPerson(binding.root.context,registroPerson)
+                    binding.lstPersonBusqueda.adapter = AdaptadorFilterPerson(binding.root.context,registroPerson)
                 }else{
                     println("Error")
                 }
