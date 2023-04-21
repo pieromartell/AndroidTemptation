@@ -12,6 +12,7 @@ import com.example.temptationmovile.clases.Provider
 
 class AdaptadorProvider(context: Context?, private val listprov: List<Provider>?): BaseAdapter() {
     private val layoutInflater: LayoutInflater
+
     init {
         layoutInflater =  LayoutInflater.from(context)
     }
