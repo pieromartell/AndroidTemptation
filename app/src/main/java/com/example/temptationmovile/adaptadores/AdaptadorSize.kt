@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.temptationmovile.R
-import com.example.temptationmovile.clases.Rol
 import com.example.temptationmovile.clases.Size
 
 class AdaptadorSize( context: Context?, private val listsize: List<Size>?): BaseAdapter() {
 
     private val layoutInflater: LayoutInflater
+    private var listaFiltrada:List<Size>?=null
     init {
         layoutInflater =  LayoutInflater.from(context)
+        listaFiltrada=listsize
     }
 
     override fun getCount(): Int {
@@ -49,4 +50,16 @@ class AdaptadorSize( context: Context?, private val listsize: List<Size>?): Base
         }
         return vista!!;
     }
+
+    fun filter(texto: String) {
+        listaFiltrada = if (texto.isEmpty()) {
+            listsize
+        } else {
+            listsize?.filter {
+                it.idsize!!.toString().lowercase().contains(texto.lowercase()) || it.name_size!!.toString().contains(texto)
+            }
+        }
+        notifyDataSetChanged()
+    }
+
 }

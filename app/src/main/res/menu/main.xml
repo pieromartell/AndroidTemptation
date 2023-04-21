@@ -9,6 +9,15 @@
             <item
                 android:id="@+id/Categoria"
                 android:title="jmiBusquedaCategory" />
+            <item
+                android:id="@+id/jmiBusquedaRol"
+                android:title="Buscar Rol" />
+            <item
+                android:id="@+id/jmiBusquedaSize"
+                android:title="Buscar Talla" />
+            <item
+                android:id="@+id/jmiBusquedaPerson"
+                android:title="Buscar Personal" />
         </menu>
     </item>
     <item

@@ -13,8 +13,10 @@ import com.example.temptationmovile.clases.Rol
 
 class AdaptadorPerson (context: Context?, private val listaPerson: List<Person>?): BaseAdapter() {
     private val layoutInflater: LayoutInflater
+    private var listaFiltrada:List<Person>?=null
     init {
         layoutInflater = LayoutInflater.from(context)
+        listaFiltrada=listaPerson
     }
     override fun getCount(): Int {
         return  listaPerson!!.size
@@ -52,5 +54,19 @@ class AdaptadorPerson (context: Context?, private val listaPerson: List<Person>?
         return vista!!
     }
 
+    fun filter(texto: String) {
+        var p=texto.lowercase()
+        listaFiltrada = if (texto.isEmpty()) {
+            listaPerson
+        } else {
+            listaPerson?.filter {
+                it.idperson!!.toString().lowercase().contains(p) ||
+                        it.name!!.toString().contains(p)||it.dni.toString().contains(p)||
+                                it.lastname.toString().contains(p)||it.idrol.toString().contains(p) ||
+                                        it.username.toString().contains(p)
+            }
+        }
+        notifyDataSetChanged()
+    }
 
 }

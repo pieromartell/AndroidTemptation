@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.temptationmovile.R
-import com.example.temptationmovile.clases.Brand
 import com.example.temptationmovile.clases.Rol
 
 class AdaptadorRol(context:Context?,private val listRol: List<Rol>?):BaseAdapter() {
 
    private val layoutInflater:LayoutInflater
+   private var listaFiltrada:List<Rol>?=null
    init {
        layoutInflater= LayoutInflater.from(context)
+       listaFiltrada=listRol
    }
     override fun getCount(): Int {
         return listRol!!.size
@@ -47,6 +48,17 @@ class AdaptadorRol(context:Context?,private val listRol: List<Rol>?):BaseAdapter
             }
         }
         return vista!!;
+    }
+
+    fun filter(texto: String) {
+        listaFiltrada = if (texto.isEmpty()) {
+            listRol
+        } else {
+            listRol?.filter {
+                it.idrol!!.toString().lowercase().contains(texto.lowercase()) || it.namerol!!.toString().contains(texto)
+            }
+        }
+        notifyDataSetChanged()
     }
 
 }
