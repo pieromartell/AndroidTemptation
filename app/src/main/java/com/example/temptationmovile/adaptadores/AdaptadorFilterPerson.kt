@@ -59,10 +59,10 @@ class AdaptadorFilterPerson (context: Context?, private val listaPerson: List<Pe
             listaPerson
         } else {
             listaPerson?.filter {
-                it.idperson!!.toString().lowercase().contains(p) ||
-                        it.name!!.toString().contains(p)||it.dni.toString().contains(p)||
-                        it.lastname.toString().contains(p)||it.idrol.toString().contains(p) ||
-                        it.username.toString().contains(p)
+                it.name!!.toString().lowercase().contains(p)
+                        ||it.dni.toString().contains(p)||
+                        it.lastname.lowercase().contains(p)||it.idrol.toString().contains(p) ||
+                        it.username.lowercase().contains(p)
             }
         }
         notifyDataSetChanged()
