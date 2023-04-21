@@ -12,8 +12,7 @@ import android.widget.Toast
 import android.widget.SearchView
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.R
-import com.example.temptationmovile.adaptadores.AdaptadorRol
-import com.example.temptationmovile.adaptadores.AdaptadorSize
+import com.example.temptationmovile.adaptadores.AdaptadorFilterSize
 import com.example.temptationmovile.clases.Rol
 import com.example.temptationmovile.clases.Size
 import com.example.temptationmovile.databinding.FragmentoBuscarSizeBinding
@@ -49,7 +48,7 @@ class FragmentoBuscarSize : Fragment() {
                 return false
             }
             override fun onQueryTextChange(newText: String?): Boolean {
-                (binding.lstSizeBusqueda.adapter as AdaptadorSize).filter(newText ?: "")
+                (binding.lstSizeBusqueda.adapter as AdaptadorFilterSize).filter(newText ?: "")
                 return true
             }
         })
@@ -92,7 +91,7 @@ class FragmentoBuscarSize : Fragment() {
             override fun onResponse(call: Call<List<Size>?>, response: Response<List<Size>?>) {
                 if (response.isSuccessful){
                     registroSize=response.body()
-                    binding.lstSizeBusqueda.adapter= AdaptadorSize(binding.root.context,registroSize)
+                    binding.lstSizeBusqueda.adapter= AdaptadorFilterSize(binding.root.context,registroSize)
                 }
             }
             override fun onFailure(call: Call<List<Size>?>, t: Throwable) {

@@ -12,7 +12,7 @@ import android.widget.Toast
 import android.widget.SearchView
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.R
-import com.example.temptationmovile.adaptadores.AdaptadorRol
+import com.example.temptationmovile.adaptadores.AdaptadorFilterRol
 import com.example.temptationmovile.clases.Rol
 import com.example.temptationmovile.databinding.FragmentoBuscarRolBinding
 import com.example.temptationmovile.remoto.ApiUtil
@@ -45,7 +45,7 @@ class FragmentoBuscarRol : Fragment() {
                 return false
             }
             override fun onQueryTextChange(newText: String?): Boolean {
-                (binding.lstRolBusqueda.adapter as AdaptadorRol).filter(newText ?: "")
+                (binding.lstRolBusqueda.adapter as AdaptadorFilterRol).filter(newText ?: "")
                 return true
             }
         })
@@ -88,7 +88,7 @@ class FragmentoBuscarRol : Fragment() {
             override fun onResponse(call: Call<List<Rol>?>, response: Response<List<Rol>?>) {
                 if (response.isSuccessful){
                     registroRol=response.body()
-                    binding.lstRolBusqueda.adapter= AdaptadorRol(binding.root.context,registroRol)
+                    binding.lstRolBusqueda.adapter= AdaptadorFilterRol(binding.root.context,registroRol)
                 }
             }
             override fun onFailure(call: Call<List<Rol>?>, t: Throwable) {
