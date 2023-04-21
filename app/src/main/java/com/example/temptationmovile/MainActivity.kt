@@ -232,8 +232,10 @@ class MainActivity : AppCompatActivity() {
             R.id.jmiBusquedaOutput -> {
                 val frag_output = FragmentoBuscarOutput()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
-                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_output).commit()
-
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor, frag_output)
+                    .commit()
+                true
+            }
             R.id.jmiBusquedaProvider -> {
                 val frag_bus_provider = FragmentBuscarProvider()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
