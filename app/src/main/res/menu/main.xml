@@ -7,8 +7,8 @@
     <item android:title="Busquedas" >
         <menu >
             <item
-                android:id="@+id/Categoria"
-                android:title="jmiBusquedaCategory" />
+                android:id="@+id/jmiBusquedaCategory"
+                android:title="Categoria" />
             <item
                 android:id="@+id/jmiBusquedaRol"
                 android:title="Buscar Rol" />

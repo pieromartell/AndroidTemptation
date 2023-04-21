@@ -12,6 +12,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarCategoria
+import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarPerson
+import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarRol
+import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarSize
 import com.example.temptationmovile.databinding.ActivityMainBinding
 import com.example.temptationmovile.ui.home.HomeFragment
 
@@ -145,11 +149,39 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_income).commit()
                 true
             }
-            R.id.jmidetailincome -> {
+            R.id.jmistyle -> {
                 //creamos una constante del fragmento que vamos a cambiar
-                val frag_detail = DetailIncomeFragment()
+                val frag_style = StyleFragment()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
-                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_detail).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_style).commit()
+                true
+            }
+            R.id.jmiBusquedaRol -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_busquedaRol = FragmentoBuscarRol()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_busquedaRol).commit()
+                true
+            }
+            R.id.jmiBusquedaPerson -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_busquedaPerson = FragmentoBuscarPerson()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_busquedaPerson).commit()
+                true
+            }
+            R.id.jmiBusquedaSize -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_busquedaSize = FragmentoBuscarSize()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_busquedaSize).commit()
+                true
+            }
+            R.id.jmiBusquedaCategory -> {
+                //creamos una constante del fragmento que vamos a cambiar
+                val frag_busquedaCat = FragmentoBuscarCategoria()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_busquedaCat).commit()
                 true
             }
             R.id.jmioutput -> {

@@ -18,11 +18,11 @@ class AdaptadorRol(context:Context?,private val listRol: List<Rol>?):BaseAdapter
        listaFiltrada=listRol
    }
     override fun getCount(): Int {
-        return listRol!!.size
+        return listaFiltrada!!.size
     }
 
     override fun getItem(position: Int): Any {
-        return listRol!![position]
+        return listaFiltrada!![position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -55,7 +55,7 @@ class AdaptadorRol(context:Context?,private val listRol: List<Rol>?):BaseAdapter
             listRol
         } else {
             listRol?.filter {
-                it.idrol!!.toString().lowercase().contains(texto.lowercase()) || it.namerol!!.toString().contains(texto)
+                it.namerol!!.toString().lowercase().contains(texto.lowercase()) || it.idrol!!.toString().contains(texto)
             }
         }
         notifyDataSetChanged()
