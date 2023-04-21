@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface ProviderService {
     @GET("providers")
-    fun MostrarProvider(): Call<List<Provider>?>?
+    fun MostrarProvider(): Call<List<Provider>>
 
 
     @POST("addprovider")

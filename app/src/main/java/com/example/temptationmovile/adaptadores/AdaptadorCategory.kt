@@ -13,6 +13,7 @@ import com.example.temptationmovile.clases.Category
 class AdaptadorCategory(context:Context?, private val listcategory:List<Category>?):BaseAdapter(){
 
     private val layoutInflater: LayoutInflater
+
     init {
         layoutInflater =  LayoutInflater.from(context)
     }

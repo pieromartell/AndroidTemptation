@@ -18,6 +18,15 @@
             <item
                 android:id="@+id/jmiBusquedaPerson"
                 android:title="Buscar Personal" />
+            <item
+                android:id="@+id/jmiBusquedaProvider"
+                android:title="Proveedor" />
+            <item
+                android:id="@+id/jmiBusquedaIncome"
+                android:title="Compras" />
+            <item
+                android:id="@+id/jmiBusquedaDetailIncome"
+                android:title="Detalle Compras" />
         </menu>
     </item>
     <item
