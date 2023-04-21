@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.temptationmovile.R
+import com.example.temptationmovile.clases.Brand
 import com.example.temptationmovile.clases.Rol
 
-class AdaptadorFilterRol(context: Context?,private val listRol: List<Rol>?): BaseAdapter() {
+class AdaptadorFilterRol(context: Context?,private val listRol: List<Rol>?,val onClickListener: (Rol, Int)->Unit): BaseAdapter() {
     private val layoutInflater: LayoutInflater
     private var listaFiltrada:List<Rol>?=null
     init {
@@ -46,6 +47,7 @@ class AdaptadorFilterRol(context: Context?,private val listRol: List<Rol>?): Bas
         }else{
             lststate_rol.text = "Desabilitado"
         }
+        vista.setOnClickListener { onClickListener(objRol,position) }
         return vista!!;
     }
 

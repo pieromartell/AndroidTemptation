@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.temptationmovile.R
+import com.example.temptationmovile.clases.Rol
 import com.example.temptationmovile.clases.Size
 
-class AdaptadorFilterSize(context: Context?, private val listsize: List<Size>?): BaseAdapter() {
+class AdaptadorFilterSize(context: Context?, private val listsize: List<Size>?,val onClickListener: (Size, Int)->Unit): BaseAdapter() {
 
     private val layoutInflater: LayoutInflater
     private var listaFiltrada:List<Size>?=null
@@ -48,7 +49,7 @@ class AdaptadorFilterSize(context: Context?, private val listsize: List<Size>?):
         }else{
             lststate_siz.text = "Desabilitado"
         }
-
+        vista.setOnClickListener { onClickListener(objsiz,position) }
         return vista!!;
     }
 

@@ -54,25 +54,7 @@ class FragmentoBuscarPerson : Fragment() {
         binding.lstPersonBusqueda.setOnItemClickListener(
             { adapterView, view,i, id ->
                 fila = i
-                objPerson.idperson=(registroPerson as ArrayList<Person>).get(fila!!).idperson
-                objPerson.idrol=(registroPerson as ArrayList<Person>).get(fila!!).idrol
-                objPerson.name=(registroPerson as ArrayList<Person>).get(fila!!).name
-                objPerson.dni=(registroPerson as ArrayList<Person>).get(fila!!).dni
-                objPerson.address=(registroPerson as ArrayList<Person>).get(fila!!).address
-                objPerson.dni=(registroPerson as ArrayList<Person>).get(fila!!).gender
-                objPerson.date_b=(registroPerson as ArrayList<Person>).get(fila!!).date_b
-                objPerson.username=(registroPerson as ArrayList<Person>).get(fila!!).username
-                objPerson.lastname=(registroPerson as ArrayList<Person>).get(fila!!).lastname
-                objPerson.password=(registroPerson as ArrayList<Person>).get(fila!!).username
-                objPerson.key=(registroPerson as ArrayList<Person>).get(fila!!).key
-                objPerson.state=(registroPerson as ArrayList<Person>).get(fila!!).state
-                //asignamos los valores a cada control
-                binding.txtIdPersonBus.setText(objPerson.idperson.toString())
-                if(objPerson.state != 0){
-                    binding.btnStatePerson.setText("Deshabilitar")
-                }else{
-                    binding.btnStatePerson.setText("Habilitar")
-                }
+
             }
         )
         binding.btnStatePerson.setOnClickListener {
@@ -92,7 +74,27 @@ class FragmentoBuscarPerson : Fragment() {
 
         return binding.root
     }
-
+    fun onClickListener(et:Person,pos:Int){
+        objPerson.idperson=et.idperson
+        objPerson.idrol=et.idrol
+        objPerson.name=et.name
+        objPerson.dni=et.dni
+        objPerson.address=et.address
+        objPerson.dni=et.dni
+        objPerson.date_b=et.date_b
+        objPerson.username=et.username
+        objPerson.lastname=et.lastname
+        objPerson.password=et.username
+        objPerson.key=et.key
+        objPerson.state=et.state
+        //asignamos los valores a cada control
+        binding.txtIdPersonBus.setText(objPerson.idperson.toString())
+        if(objPerson.state != 0){
+            binding.btnStatePerson.setText("Deshabilitar")
+        }else{
+            binding.btnStatePerson.setText("Habilitar")
+        }
+    }
     fun mostrarUsers(){
         val call = personService!!.MostrarUsuarios()
         call!!.enqueue(object : Callback<List<Person>> {
@@ -100,7 +102,7 @@ class FragmentoBuscarPerson : Fragment() {
                 if(response.isSuccessful){
                     println("Correcto")
                     registroPerson = response.body()
-                    binding.lstPersonBusqueda.adapter = AdaptadorFilterPerson(binding.root.context,registroPerson)
+                    binding.lstPersonBusqueda.adapter = AdaptadorFilterPerson(binding.root.context,registroPerson,{per,pos->onClickListener(per,pos)})
                 }else{
                     println("Error")
                 }

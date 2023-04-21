@@ -52,21 +52,7 @@ class FragmentoBuscarSize : Fragment() {
                 return true
             }
         })
-        binding.lstSizeBusqueda.setOnItemClickListener(
-            { adapterView, view,i, id ->
-                fila = i
-                objSize.idsize=(registroSize as ArrayList<Size>).get(fila!!).idsize
-                objSize.name_size=(registroSize as ArrayList<Size>).get(fila!!).name_size
-                objSize.state=(registroSize as ArrayList<Size>).get(fila!!).state
-                //asignamos los valores a cada control
-                binding.txtIdSizeBus.setText(objSize.idsize.toString())
-                if(objSize.state != 0){
-                    binding.btnStateSize.setText("Deshabilitar")
-                }else{
-                    binding.btnStateSize.setText("Habilitar")
-                }
-            }
-        )
+
         binding.btnStateSize.setOnClickListener {
             if (binding.txtIdSizeBus.text.toString().length>0){
                 if (objSize.state==1){
@@ -84,14 +70,24 @@ class FragmentoBuscarSize : Fragment() {
 
         return binding.root
     }
-
+    fun onClickListener(talla:Size,pos:Int){
+        binding.txtIdSizeBus.setText(talla.idsize.toString())
+        objSize.idsize=talla.idsize
+        objSize.name_size=talla.name_size
+        objSize.state=talla.state
+        if(objSize.state != 0){
+            binding.btnStateSize.setText("Deshabilitar")
+        }else{
+            binding.btnStateSize.setText("Habilitar")
+        }
+    }
     fun mostrarSize(){
         val call = sizeService!!.Mostrarsizes()
         call.enqueue(object: Callback<List<Size>?> {
             override fun onResponse(call: Call<List<Size>?>, response: Response<List<Size>?>) {
                 if (response.isSuccessful){
                     registroSize=response.body()
-                    binding.lstSizeBusqueda.adapter= AdaptadorFilterSize(binding.root.context,registroSize)
+                    binding.lstSizeBusqueda.adapter= AdaptadorFilterSize(binding.root.context,registroSize,{talla,pos->onClickListener(talla,pos)})
                 }
             }
             override fun onFailure(call: Call<List<Size>?>, t: Throwable) {

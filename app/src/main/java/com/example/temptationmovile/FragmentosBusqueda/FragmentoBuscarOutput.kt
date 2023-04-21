@@ -16,6 +16,7 @@ import com.example.temptationmovile.R
 import com.example.temptationmovile.adaptadores.AdaptadorFilterOutput
 import com.example.temptationmovile.adaptadores.AdaptadorFilterRol
 import com.example.temptationmovile.adaptadores.AdaptadorOutput
+import com.example.temptationmovile.clases.Person
 import com.example.temptationmovile.clases.Rol
 import com.example.temptationmovile.databinding.FragmentoBuscarOutputBinding
 import com.example.temptationmovile.remoto.ApiUtil
@@ -58,20 +59,7 @@ class FragmentoBuscarOutput : Fragment() {
         binding.lstOutputBusqueda.setOnItemClickListener(
             { adapterView, view,i, id ->
                 fila = i
-                objUt.idout=(registroOutput as ArrayList<Output>).get(fila!!).idout
-                objUt.idproduc=(registroOutput as ArrayList<Output>).get(fila!!).idproduc
-                objUt.state=(registroOutput as ArrayList<Output>).get(fila!!).state
-                objUt.destino=(registroOutput as ArrayList<Output>).get(fila!!).destino
-                objUt.dateout=(registroOutput as ArrayList<Output>).get(fila!!).dateout
-                objUt.quantity=(registroOutput as ArrayList<Output>).get(fila!!).quantity
 
-                //asignamos los valores a cada control
-                binding.txtIdOutputBus.setText(objUt.idout.toString())
-                if(objUt.state != 0){
-                    binding.btnStateOutput.setText("Deshabilitar")
-                }else{
-                    binding.btnStateOutput.setText("Habilitar")
-                }
             }
         )
         binding.btnStateOutput.setOnClickListener {
@@ -92,6 +80,22 @@ class FragmentoBuscarOutput : Fragment() {
         return binding.root
     }
 
+    fun onClickListener(et: Output, pos:Int){
+        objUt.idout=et.idout
+        objUt.idproduc=et.idproduc
+        objUt.state=et.state
+        objUt.destino=et.destino
+        objUt.dateout=et.dateout
+        objUt.quantity=et.quantity
+
+        //asignamos los valores a cada control
+        binding.txtIdOutputBus.setText(objUt.idout.toString())
+        if(objUt.state != 0){
+            binding.btnStateOutput.setText("Deshabilitar")
+        }else{
+            binding.btnStateOutput.setText("Habilitar")
+        }
+    }
     fun mostrarOutput(){
         val call = outService!!.MostrarOutputs()
         call!!.enqueue(object: Callback<List<Output>> {
@@ -99,7 +103,7 @@ class FragmentoBuscarOutput : Fragment() {
                 if(response.isSuccessful){
                     println("Correcto")
                     registroOutput = response.body()
-                    binding.lstOutputBusqueda.adapter = AdaptadorFilterOutput(context,registroOutput)
+                    binding.lstOutputBusqueda.adapter = AdaptadorFilterOutput(context,registroOutput,{ou,pos->onClickListener(ou,pos)})
                 }
             }
 

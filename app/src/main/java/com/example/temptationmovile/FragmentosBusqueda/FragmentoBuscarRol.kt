@@ -49,21 +49,7 @@ class FragmentoBuscarRol : Fragment() {
                 return true
             }
         })
-        binding.lstRolBusqueda.setOnItemClickListener(
-            { adapterView, view,i, id ->
-                fila = i
-                objRol.idrol=(registroRol as ArrayList<Rol>).get(fila!!).idrol
-                objRol.namerol=(registroRol as ArrayList<Rol>).get(fila!!).namerol
-                objRol.state=(registroRol as ArrayList<Rol>).get(fila!!).state
-                //asignamos los valores a cada control
-                binding.txtIdRolBus.setText(objRol.idrol.toString())
-                if(objRol.state != 0){
-                    binding.btnStateRol.setText("Deshabilitar")
-                }else{
-                    binding.btnStateRol.setText("Habilitar")
-                }
-            }
-        )
+        
         binding.btnStateRol.setOnClickListener {
             if (binding.txtIdRolBus.text.toString().length>0){
                 if (objRol.state==1){
@@ -82,13 +68,24 @@ class FragmentoBuscarRol : Fragment() {
         return binding.root
     }
 
+    fun onClickListener(rol:Rol,pos:Int){
+        binding.txtIdRolBus.setText(rol.idrol.toString())
+        objRol.idrol=rol.idrol
+        objRol.namerol=rol.namerol
+        objRol.state=rol.state
+        if(objRol.state != 0){
+            binding.btnStateRol.setText("Deshabilitar")
+        }else{
+            binding.btnStateRol.setText("Habilitar")
+        }
+    }
     fun mostrarRol(){
         val call = rolService!!.MostrarRol()
         call!!.enqueue(object: Callback<List<Rol>?> {
             override fun onResponse(call: Call<List<Rol>?>, response: Response<List<Rol>?>) {
                 if (response.isSuccessful){
                     registroRol=response.body()
-                    binding.lstRolBusqueda.adapter= AdaptadorFilterRol(binding.root.context,registroRol)
+                    binding.lstRolBusqueda.adapter= AdaptadorFilterRol(binding.root.context,registroRol,{rol,pos->onClickListener(rol,pos)})
                 }
             }
             override fun onFailure(call: Call<List<Rol>?>, t: Throwable) {

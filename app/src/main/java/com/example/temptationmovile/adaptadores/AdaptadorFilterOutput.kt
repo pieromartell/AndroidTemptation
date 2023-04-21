@@ -9,8 +9,9 @@ import android.widget.TextView
 import com.example.temptationmovile.R
 import com.example.temptationmovile.clases.Output
 import com.example.temptationmovile.clases.Person
+import com.example.temptationmovile.clases.Size
 
-class AdaptadorFilterOutput (context: Context?, private val listoutput: List<Output>?): BaseAdapter() {
+class AdaptadorFilterOutput (context: Context?, private val listoutput: List<Output>?,val onClickListener: (Output, Int)->Unit): BaseAdapter() {
 
     private val layoutInflater: LayoutInflater
     private var listFiltrada:List<Output>?=null
@@ -51,7 +52,7 @@ class AdaptadorFilterOutput (context: Context?, private val listoutput: List<Out
         }else{
             lblEstadoOut.text="Deshabilitado"
         }
-
+        vista.setOnClickListener { onClickListener(objoutput,p0) }
         return vista!!
     }
 
