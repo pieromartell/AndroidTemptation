@@ -59,4 +59,5 @@ dependencies {
     //agregado
     implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation("com.ToxicBakery.library.bcrypt:bcrypt:+")
 }

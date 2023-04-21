@@ -1,5 +1,6 @@
 package com.example.temptationmovile
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 import com.example.temptationmovile.adaptadores.AdaptadorRol
+import com.example.temptationmovile.clases.Brand
 import com.example.temptationmovile.clases.Rol
 import com.example.temptationmovile.databinding.FragmentRolBinding
 import com.example.temptationmovile.remoto.ApiUtil
@@ -40,6 +42,8 @@ class RolFragment : Fragment() {
     var objutil = Util()
 
     var ft:FragmentTransaction?=null
+
+    private var dialogo: AlertDialog.Builder? = null
 
     private var _binding:FragmentRolBinding?=null
 
@@ -79,13 +83,36 @@ class RolFragment : Fragment() {
                 Log.e(objRol.namerol, (objRol.state).toString())
                 registrar(raiz.context, objRol)
                 Log.e(objRol.namerol, (objRol.state).toString())
-
                 //actualizamos el rol
                 val frol = RolFragment()
-                ft = fragmentManager?.beginTransaction()
-                ft?.replace(R.id.contenedor,frol,null)
-                ft?.addToBackStack(null)
-                ft?.commit()
+                DialogoCRUD("Registro de rol","Se registro el rol",frol)
+            }
+        }
+        btnActualizar.setOnClickListener {
+            if(fila>=0){
+                idrol =  lblCodRol.getText().toString().toInt()
+                name_rol =  txtRol.getText().toString()
+                state =  if (chbEst.isChecked) 1 else 0
+                objRol.idrol = idrol
+                objRol.namerol = name_rol
+                objRol.state = state
+                AnctualizarRol(raiz.context, objRol, idrol.toLong())
+                val fra = RolFragment()
+                DialogoCRUD("Actualización de rol", "Se actualizó el rol",fra)
+            }else{
+                lstRol.requestFocus()
+            }
+        }
+
+        btnEliminar.setOnClickListener {
+            if(fila>=0){
+                idrol = lblCodRol.getText().toString().toInt()
+                objRol.idrol = idrol
+                EliminarBrand(raiz.context,idrol.toLong())
+                val fra =  RolFragment()
+                DialogoCRUD("Eliminar el rol", "Se elimino el rol",fra)
+            }else{
+                lstRol.requestFocus()
             }
         }
 
@@ -136,6 +163,53 @@ class RolFragment : Fragment() {
 
         })
     }
+
+    fun AnctualizarRol(context: Context, b: Rol, id: Long ){
+        val call = rolService!!.ActualizarRol(id,b)
+        call!!.enqueue(object : Callback<List<Rol>?>{
+            override fun onResponse(call: Call<List<Rol>?>, response: Response<List<Rol>?>) {
+                if(response.isSuccessful){
+                    Log.e("Mensaje", "Se actualizo correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Rol>?>, t: Throwable) {
+                Log.e("Error: ",t.message!!)
+            }
+
+        })
+    }
+    fun EliminarBrand(context: Context, id: Long){
+        val call = rolService!!.EliminarRol(id)
+        call!!.enqueue(object: Callback<List<Rol>?>{
+            override fun onResponse(call: Call<List<Rol>?>, response: Response<List<Rol>?>) {
+                if(response.isSuccessful){
+                    Log.e("mensaje","Se elimino correctamente")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Rol>?>, t: Throwable) {
+                Log.e("Error",t.message!!)
+            }
+
+        })
+    }
+
+    fun DialogoCRUD(titulo: String, mensaje: String, fragment: Fragment) {
+        dialogo = AlertDialog.Builder(context)
+        dialogo!!.setTitle(titulo)
+        dialogo!!.setMessage(mensaje)
+        dialogo!!.setCancelable(false)
+        dialogo!!.setPositiveButton("Ok") { dialogo, which ->
+            val fra = fragment
+            ft = fragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor, fra, null)
+            ft?.addToBackStack(null)
+            ft?.commit()
+        }
+        dialogo!!.show()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

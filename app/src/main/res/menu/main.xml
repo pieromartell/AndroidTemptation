@@ -4,6 +4,25 @@
     <item
         android:id="@+id/jmiInicio"
         android:title="Inicio" />
+    <item android:title="Busquedas" >
+        <menu >
+            <item
+                android:id="@+id/Categoria"
+                android:title="jmiBusquedaCategory" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/jmiCompras"
+        android:title="Compras" >
+        <menu >
+            <item
+                android:id="@+id/jmiincome"
+                android:title="Compra" />
+            <item
+                android:id="@+id/jmidetailincome"
+                android:title="Detalle Compra" />
+        </menu>
+    </item>
     <item
         android:id="@+id/jmibrand"
         android:title="Marca" />
@@ -32,12 +51,6 @@
         android:id="@+id/jmiprovider"
         android:title="Proveedor" />
     <item
-        android:id="@+id/jmiincome"
-        android:title="Compra" />
-    <item
-        android:id="@+id/jmidetailincome"
-        android:title="Detalle Compra" />
-    <item
-        android:id="@+id/jmisalir"
-        android:title="Salir" />
+        android:id="@+id/jmioutput"
+        android:title="Output" />
 </menu>

@@ -22,4 +22,5 @@
     <string name="valstringdescripcionproduct">Descripcion</string>
     <string name="txtvaltitulo">Bienvenido</string>
     <string name="valStringdate">Fecha</string>
+    <string name="valtxtpro">Producto</string>
 </resources>
