@@ -12,16 +12,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarCategoria
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarPerson
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarRol
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarSize
 import com.example.temptationmovile.FragmentosBusqueda.FragmentoBuscarProduct
 import com.example.temptationmovile.FragmentosBusqueda.FragmentobusquedaBrand
-
 import com.example.temptationmovile.FragmentosBusqueda.*
-
 import com.example.temptationmovile.databinding.ActivityMainBinding
 import com.example.temptationmovile.ui.home.HomeFragment
 
@@ -219,7 +216,15 @@ class MainActivity : AppCompatActivity() {
             R.id.jmiBuscarProduct -> {
                 val frag_fragmentobusquedaProduc = FragmentoBuscarProduct()
                 //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
-                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_fragmentobusquedaProduc).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.contenedor, frag_fragmentobusquedaProduc).commit()
+                true
+            }
+
+            R.id.jmiBusquedaOutput -> {
+                val frag_output = FragmentoBuscarOutput()
+                //EL CONTENEDOR SERÁ REEMPLAZADO POR EL FRAGMENTO REQUERIDO, QUE EN ESTE CASO ES EL 'FRAGMENTO INICIO'
+                supportFragmentManager.beginTransaction().replace(R.id.contenedor,frag_output).commit()
                 true
             }
             else -> super.onOptionsItemSelected(item)

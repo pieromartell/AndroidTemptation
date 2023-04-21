@@ -10,33 +10,40 @@
 
         <TextView
             android:id="@+id/lblidoutput"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#FF0303"
-            android:text="TextView" />
+            android:text="12" />
 
         <TextView
             android:id="@+id/lblidprod"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:textColor="#FF0303"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/lblcant"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#FF0303"
-            android:text="TextView" />
+            android:text="121" />
 
         <TextView
             android:id="@+id/lbldestino"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:textColor="#FF0303"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/lblEstadoOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.6"
             android:textColor="#FF0303"
             android:text="TextView" />
 

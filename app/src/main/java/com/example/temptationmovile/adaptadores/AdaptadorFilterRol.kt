@@ -54,7 +54,11 @@ class AdaptadorFilterRol(context: Context?,private val listRol: List<Rol>?): Bas
             listRol
         } else {
             listRol?.filter {
+<<<<<<< HEAD
                 it.namerol!!.toString().lowercase().contains(texto.lowercase()) || it.idrol!!.toString().contains(texto)
+=======
+                it.idrol!!.toString().lowercase().contains(texto.lowercase()) || it.namerol!!.toString().contains(texto.lowercase())
+>>>>>>> sebas
             }
         }
         notifyDataSetChanged()

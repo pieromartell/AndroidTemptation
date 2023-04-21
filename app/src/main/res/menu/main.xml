@@ -10,7 +10,6 @@
                 android:id="@+id/jmiBusquedaCategory"
                 android:title="Categoria" />
             <item
-
                 android:id="@+id/jmiBusquedaBrand"
                 android:title="Busqueda Brand" />
             <item
@@ -31,6 +30,9 @@
             <item
                 android:id="@+id/jmiBusquedaStyle"
                 android:title="Estilo" />
+            <item
+                android:id="@+id/jmiBusquedaOutput"
+                android:title="Buscar Salida" />
         </menu>
     </item>
     <item

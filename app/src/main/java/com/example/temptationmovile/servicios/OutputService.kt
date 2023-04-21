@@ -14,5 +14,6 @@ interface OutputService {
 
     @PUT("output/{idout}")
     fun ActualizarProduct(@Path("idout") id: Long, @Body p: Output): Call<List<Output>?>?
-
+    @DELETE("output/{idout}")
+    fun EliminarOutput(@Path("idout") idout:Long):Call<Output>?
 }
